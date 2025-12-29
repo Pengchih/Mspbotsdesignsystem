@@ -1,123 +1,143 @@
-import React from 'react';
-import { Palette, Type, Component, Layers, Monitor, Cpu, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { 
+  ColorWheelIcon, 
+  FontFamilyIcon, 
+  ComponentInstanceIcon, 
+  LayersIcon, 
+  DesktopIcon, 
+  ComponentBooleanIcon, 
+  ChevronRightIcon, 
+  ChevronDownIcon, 
+  DragHandleVerticalIcon 
+} from '@radix-ui/react-icons';
 
 interface SidebarProps {
+  activeCategory: 'foundation' | 'components';
   activeTab: string;
   setActiveTab: (tab: string) => void;
 }
 
-export function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
-  const menuItems = [
-    { id: 'foundation', label: 'Foundation', icon: Layers },
-    { id: 'typography', label: 'Typography', icon: Type, parent: 'foundation' },
-    { id: 'colors', label: 'Colors', icon: Palette, parent: 'foundation' },
-    { id: 'components', label: 'Components', icon: Component },
-    { id: 'buttons', label: 'Buttons', icon: Cpu, parent: 'components' },
-    { id: 'inputs', label: 'Inputs', icon: Monitor, parent: 'components' },
+export function Sidebar({ activeCategory, activeTab, setActiveTab }: SidebarProps) {
+  const [isFoundationOpen, setIsFoundationOpen] = useState(true);
+  const [isComponentsOpen, setIsComponentsOpen] = useState(true);
+  const [width, setWidth] = useState(260);
+  const [isResizing, setIsResizing] = useState(false);
+
+  const startResizing = useCallback(() => {
+    setIsResizing(true);
+  }, []);
+
+  const stopResizing = useCallback(() => {
+    setIsResizing(false);
+  }, []);
+
+  const resize = useCallback(
+    (mouseMoveEvent: MouseEvent) => {
+      if (isResizing) {
+        const newWidth = mouseMoveEvent.clientX;
+        if (newWidth >= 180 && newWidth <= 480) {
+          setWidth(newWidth);
+        }
+      }
+    },
+    [isResizing]
+  );
+
+  useEffect(() => {
+    if (isResizing) {
+      window.addEventListener("mousemove", resize);
+      window.addEventListener("mouseup", stopResizing);
+    } else {
+      window.removeEventListener("mousemove", resize);
+      window.removeEventListener("mouseup", stopResizing);
+    }
+    return () => {
+      window.removeEventListener("mousemove", resize);
+      window.removeEventListener("mouseup", stopResizing);
+    };
+  }, [isResizing, resize, stopResizing]);
+
+  const foundationItems = [
+    { id: 'foundation', label: 'Overview', icon: LayersIcon },
+    { id: 'typography', label: 'Typography', icon: FontFamilyIcon },
+    { id: 'colors', label: 'Colors', icon: ColorWheelIcon },
   ];
 
-  return (
-    <div className="w-64 h-screen bg-[#F1F3F5] border-r border-border flex flex-col fixed left-0 top-0 overflow-y-auto">
-      <div className="p-6 border-b border-border bg-white/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">M</span>
-          </div>
-          <span className="font-semibold tracking-tight text-foreground">MSPBots Design</span>
-        </div>
-      </div>
+  const componentItems = [
+    { id: 'components', label: 'Overview', icon: ComponentInstanceIcon },
+    { id: 'buttons', label: 'Buttons', icon: ComponentBooleanIcon },
+    { id: 'inputs', label: 'Inputs', icon: DesktopIcon },
+  ];
+
+  const currentItems = activeCategory === 'foundation' ? foundationItems : componentItems;
+  const currentTitle = activeCategory === 'foundation' ? 'Core Foundation' : 'Component Library';
+
+  const renderSection = (
+    title: string, 
+    items: any[], 
+    isOpen: boolean, 
+    setIsOpen: (val: boolean) => void
+  ) => (
+    <div className="space-y-0.5">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center gap-1.5 px-2 py-1.5 text-[11px] font-bold text-muted-foreground/60 uppercase tracking-widest hover:text-foreground transition-colors cursor-pointer"
+      >
+        <span className="transition-transform duration-200">
+          {isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
+        </span>
+        <span>{title}</span>
+      </button>
       
-      <nav className="flex-1 p-4 space-y-1">
-        <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 mb-2 mt-4">
-          Core
+      {isOpen && (
+        <div className="ml-3.5 pl-3 border-l border-border/40 space-y-0.5 mt-0.5 py-1">
+          {items.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`w-full flex items-center gap-2.5 px-3 py-1.5 rounded-md text-sm transition-all duration-200 group ${
+                  isActive 
+                    ? 'bg-secondary text-foreground font-medium' 
+                    : 'text-muted-foreground hover:bg-muted/40 hover:text-foreground'
+                }`}
+              >
+                <Icon className={`transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground/40 group-hover:text-muted-foreground/70'}`} />
+                <span className="truncate">{item.label}</span>
+              </button>
+            );
+          })}
         </div>
-        <button
-          onClick={() => setActiveTab('foundation')}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200 ${
-            activeTab === 'foundation' || activeTab === 'typography' || activeTab === 'colors'
-              ? 'bg-white text-foreground shadow-sm' 
-              : 'text-muted-foreground hover:bg-white/50 hover:text-foreground'
-          }`}
-        >
-          <Layers className="size-4" />
-          <span className="flex-1 text-left font-medium">Foundation</span>
-          <ChevronRight className={`size-3 transition-transform ${activeTab.includes('foundation') ? 'rotate-90' : ''}`} />
-        </button>
-        
-        <div className="pl-4 space-y-1 mt-1">
-          <button
-            onClick={() => setActiveTab('typography')}
-            className={`w-full flex items-center gap-3 px-3 py-1.5 rounded-md text-sm transition-all ${
-              activeTab === 'typography' 
-                ? 'text-primary font-medium' 
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <Type className="size-3.5" />
-            <span>Typography</span>
-          </button>
-          <button
-            onClick={() => setActiveTab('colors')}
-            className={`w-full flex items-center gap-3 px-3 py-1.5 rounded-md text-sm transition-all ${
-              activeTab === 'colors' 
-                ? 'text-primary font-medium' 
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <Palette className="size-3.5" />
-            <span>Colors</span>
-          </button>
-        </div>
+      )}
+    </div>
+  );
 
-        <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 mb-2 mt-8">
-          Library
-        </div>
-        <button
-          onClick={() => setActiveTab('components')}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200 ${
-            activeTab.includes('components') || activeTab === 'buttons' || activeTab === 'inputs'
-              ? 'bg-white text-foreground shadow-sm' 
-              : 'text-muted-foreground hover:bg-white/50 hover:text-foreground'
-          }`}
-        >
-          <Component className="size-4" />
-          <span className="flex-1 text-left font-medium">Components</span>
-          <ChevronRight className={`size-3 transition-transform ${activeTab.includes('components') ? 'rotate-90' : ''}`} />
-        </button>
-
-        <div className="pl-4 space-y-1 mt-1">
-          <button
-            onClick={() => setActiveTab('buttons')}
-            className={`w-full flex items-center gap-3 px-3 py-1.5 rounded-md text-sm transition-all ${
-              activeTab === 'buttons' 
-                ? 'text-primary font-medium' 
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <Cpu className="size-3.5" />
-            <span>Buttons</span>
-          </button>
-          <button
-            onClick={() => setActiveTab('inputs')}
-            className={`w-full flex items-center gap-3 px-3 py-1.5 rounded-md text-sm transition-all ${
-              activeTab === 'inputs' 
-                ? 'text-primary font-medium' 
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <Monitor className="size-3.5" />
-            <span>Inputs</span>
-          </button>
-        </div>
+  return (
+    <div 
+      className="h-[calc(100vh-64px)] bg-sidebar border-r border-border/60 flex flex-col fixed left-0 top-16 z-20"
+      style={{ width: `${width}px` }}
+    >
+      <nav className="flex-1 p-4 overflow-y-auto space-y-4 select-none scrollbar-hide">
+        {activeCategory === 'foundation' ? (
+          renderSection('Core Foundation', foundationItems, isFoundationOpen, setIsFoundationOpen)
+        ) : (
+          renderSection('Component Library', componentItems, isComponentsOpen, setIsComponentsOpen)
+        )}
       </nav>
 
-      <div className="p-4 mt-auto">
-        <div className="p-3 bg-white/40 rounded-lg border border-border/50">
-          <p className="text-[10px] text-muted-foreground leading-relaxed">
-            v1.0.0-alpha<br />
-            Built with Figma Make
-          </p>
-        </div>
+      {/* Resize Handle */}
+      <div 
+        onMouseDown={startResizing}
+        className={`absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize group z-30 transition-colors ${isResizing ? 'bg-primary/20' : 'hover:bg-primary/10'}`}
+      >
+        <div className={`absolute inset-y-0 right-0 w-[1px] bg-border/40 group-hover:bg-primary/30 transition-colors ${isResizing ? 'bg-primary/50' : ''}`} />
+        {isResizing && (
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary rounded-full p-0.5 shadow-lg border border-white/20">
+            <DragHandleVerticalIcon className="text-white" />
+          </div>
+        )}
       </div>
     </div>
   );

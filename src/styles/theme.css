@@ -10,6 +10,14 @@
   --text-base: 14px;
   --text-sm: 12px;
   
+  /* MSPBots Brand Colors (Turquoise) */
+  --mspbots-primary: #17b3a3;
+  --mspbots-primary-foreground: #FCFCFC;
+  --mspbots-primary-hover: #45c2b5;
+  --mspbots-primary-active: #15a193;
+  --mspbots-primary-muted: #e8e8e8;
+  --mspbots-primary-muted-foreground: #c0c4cc;
+  
   /* Font weights */
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
@@ -27,11 +35,11 @@
   /* The default color for text or elements that appear on top of dropdowns and tooltips. */
   --popover-foreground: rgba(48, 49, 51, 1.00);
   /* The primary color used for buttons, links, and other interactive elements. */
-  --primary: rgba(23, 179, 163, 1.00);
+  --primary: rgba(28, 28, 30, 1.00);
   /* The default color for text or elements that appear on top of primary colored elements. */
   --primary-foreground: rgba(255, 255, 255, 1.00);
   /* The secondary color used for secondary(but NOT-DESTRUCTIVE) buttons and interactive elements. */
-  --secondary: rgba(248, 248, 248, 1.00);
+  --secondary: rgba(242, 242, 247, 1.00);
   /* The default color for text or elements that appear on top of secondary colored elements. */
   --secondary-foreground: rgba(96, 98, 102, 1.00);
   /* The muted color used for less prominent elements, such as disabled buttons or disabled text. */
@@ -39,7 +47,7 @@
   /* The default color for text or elements that appear on top of muted colored elements. */
   --muted-foreground: rgba(144, 147, 152, 1.00);
   /* The accent color used for highlights, links, and other interactive elements. */
-  --accent: rgba(23, 179, 163, 1.00);
+  --accent: rgba(28, 28, 30, 1.00);
   /* The default color for text or elements that appear on top of accent colored elements. */
   --accent-foreground: rgba(255, 255, 255, 1.00);
   /* The color used for background in destructive actions, such as delete buttons or error messages. */
@@ -53,7 +61,7 @@
   /* The default background color for input fields, text areas, and other input elements. */
   --input-background: rgba(255, 255, 255, 1.00);
   /* The default color for focus rings, outlines, and other focus indicators. */
-  --ring: rgba(23, 179, 163, 1.00);
+  --ring: rgba(28, 28, 30, 1.00);
   /* Shadow for small elevations, such as cards or modals. */
   --elevation-sm: 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
   /* The color for chart elements, such as a bar or line in a chart. */
@@ -72,16 +80,18 @@
   --radius-button: 3px;
   /* The border radius specifically for cards and larger containers */
   --radius-card: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
   /* The background color for sidebars, navigation menus, and other persistent elements. */
   --sidebar: rgba(255, 255, 255, 1.00);
   /* The default color for text or elements that appear on top of sidebars, navigation menus, and other persistent elements. */
   --sidebar-foreground: rgba(48, 49, 51, 1.00);
   /* The primary color used for buttons, links, and other interactive elements in sidebars and navigation menus. */
-  --sidebar-primary: rgba(23, 179, 163, 1.00);
+  --sidebar-primary: rgba(28, 28, 30, 1.00);
   /* The default color for text or elements that appear on top of primary colored elements in sidebars and navigation menus. */
   --sidebar-primary-foreground: rgba(255, 255, 255, 1.00);
   /* The accent color used for highlights, links, and other interactive elements in sidebars and navigation menus. */
-  --sidebar-accent: rgba(23, 179, 163, 1.00);
+  --sidebar-accent: rgba(28, 28, 30, 1.00);
   /* The default color for text or elements that appear on top of accent colored elements in sidebars and navigation menus. */
   --sidebar-accent-foreground: rgba(255, 255, 255, 1.00);
   /* The default border color for elements in sidebars and navigation menus. */
@@ -118,7 +128,8 @@
   --color-chart-5: var(--chart-5);
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
-  --radius-lg: var(--radius-card);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
   --radius-button: var(--radius-button);
   --elevation-sm: var(--elevation-sm);
   --color-sidebar: var(--sidebar);

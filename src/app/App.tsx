@@ -4,10 +4,18 @@ import { Colors } from './components/Colors';
 import { Typography } from './components/Typography';
 import { ButtonShowcase } from './components/ButtonShowcase';
 import { InputShowcase } from './components/InputShowcase';
+import { Foundation } from './pages/Foundation';
+import { Components } from './pages/Components';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
+  const [activeCategory, setActiveCategory] = useState<'foundation' | 'components'>('foundation');
   const [activeTab, setActiveTab] = useState('foundation');
+
+  const handleCategoryChange = (cat: 'foundation' | 'components') => {
+    setActiveCategory(cat);
+    setActiveTab(cat);
+  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -20,114 +28,68 @@ export default function App() {
       case 'inputs':
         return <InputShowcase />;
       case 'foundation':
-        return (
-          <div className="space-y-8">
-            <section className="bg-white p-8 rounded-xl border border-border shadow-sm">
-              <h2 className="mb-4">Foundation Overview</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                The MSPBots Design System is built on principles of clarity, efficiency, and professional aesthetics. 
-                Our foundation defines the core visual language of our applications, ensuring consistency across all products.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-                <button 
-                  onClick={() => setActiveTab('colors')}
-                  className="p-6 bg-secondary hover:bg-muted transition-all rounded-lg border border-border text-left group"
-                >
-                  <h3 className="mb-2 group-hover:text-primary transition-colors">Colors</h3>
-                  <p className="text-sm text-muted-foreground">Our functional and aesthetic palette.</p>
-                </button>
-                <button 
-                  onClick={() => setActiveTab('typography')}
-                  className="p-6 bg-secondary hover:bg-muted transition-all rounded-lg border border-border text-left group"
-                >
-                  <h3 className="mb-2 group-hover:text-primary transition-colors">Typography</h3>
-                  <p className="text-sm text-muted-foreground">Font families, weights, and hierarchies.</p>
-                </button>
-              </div>
-            </section>
-          </div>
-        );
+        return <Foundation onNavigate={setActiveTab} />;
       case 'components':
-        return (
-          <div className="space-y-8">
-            <section className="bg-white p-8 rounded-xl border border-border shadow-sm">
-              <h2 className="mb-4">Component Library</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                Our component library provides reusable, production-ready UI elements designed to work seamlessly together.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-                <button 
-                  onClick={() => setActiveTab('buttons')}
-                  className="p-6 bg-secondary hover:bg-muted transition-all rounded-lg border border-border text-left group"
-                >
-                  <h3 className="mb-2 group-hover:text-primary transition-colors">Buttons</h3>
-                  <p className="text-sm text-muted-foreground">Interactive triggers for user actions.</p>
-                </button>
-                <button 
-                  onClick={() => setActiveTab('inputs')}
-                  className="p-6 bg-secondary hover:bg-muted transition-all rounded-lg border border-border text-left group"
-                >
-                  <h3 className="mb-2 group-hover:text-primary transition-colors">Inputs</h3>
-                  <p className="text-sm text-muted-foreground">Form controls for gathering user data.</p>
-                </button>
-              </div>
-            </section>
-          </div>
-        );
+        return <Components onNavigate={setActiveTab} />;
       default:
         return null;
     }
   };
 
-  const getPageTitle = () => {
-    const titles: Record<string, string> = {
-      foundation: 'Foundation Overview',
-      colors: 'Color Palette',
-      typography: 'Typography',
-      components: 'Component Library',
-      buttons: 'Buttons',
-      inputs: 'Input Fields',
-    };
-    return titles[activeTab] || 'Design System';
-  };
-
   return (
-    <div className="min-h-screen bg-background text-foreground flex">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      
-      <main className="flex-1 ml-64 p-8 lg:p-12 overflow-y-auto">
-        <div className="max-w-5xl mx-auto">
-          <header className="mb-12">
-            <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
-              <span>Docs</span>
-              <span>/</span>
-              <span className="capitalize">{activeTab.includes('buttons') || activeTab.includes('inputs') ? 'Components' : 'Foundation'}</span>
-              <span>/</span>
-              <span className="text-foreground font-medium">{getPageTitle()}</span>
-            </div>
-            <motion.h1 
-              key={activeTab}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="tracking-tight"
-            >
-              {getPageTitle()}
-            </motion.h1>
-          </header>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -10 }}
-              transition={{ duration: 0.2 }}
-            >
-              {renderContent()}
-            </motion.div>
-          </AnimatePresence>
+    <div className="min-h-screen bg-background text-foreground font-inter">
+      {/* Top Navigation */}
+      <header className="h-16 border-b border-border/40 bg-background fixed top-0 left-0 right-0 z-30 flex items-center justify-center">
+        <div className="flex items-center gap-1">
+          <button
+            onClick={() => handleCategoryChange('foundation')}
+            className={`px-5 py-2 rounded-[var(--radius-lg)] text-sm font-semibold transition-all duration-200 ${
+              activeCategory === 'foundation'
+                ? 'bg-muted text-foreground'
+                : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+            }`}
+          >
+            Foundation
+          </button>
+          <button
+            onClick={() => handleCategoryChange('components')}
+            className={`px-5 py-2 rounded-[var(--radius-lg)] text-sm font-semibold transition-all duration-200 ${
+              activeCategory === 'components'
+                ? 'bg-muted text-foreground'
+                : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+            }`}
+          >
+            Components
+          </button>
         </div>
-      </main>
+      </header>
+
+      <div className="flex pt-16">
+        <Sidebar 
+          activeCategory={activeCategory}
+          activeTab={activeTab} 
+          setActiveTab={setActiveTab} 
+        />
+        
+        <main className="flex-1 ml-64 p-12 lg:p-20 overflow-y-auto min-h-[calc(100vh-64px)] bg-background scroll-smooth">
+          <div className="max-w-[986px] min-w-[706px] mx-auto [&_h1]:mb-4 [&_h2]:mt-24 [&_h2]:mb-8 [&_h3]:mt-16 [&_h3]:mb-6 [&_p]:leading-relaxed">
+            {/* Page content rendered here */}
+            
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+                className="w-full"
+              >
+                {renderContent()}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

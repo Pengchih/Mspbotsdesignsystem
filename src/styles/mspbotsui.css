@@ -1,0 +1,235 @@
+/* MSPBots UI Component Library Styles */
+/* This file contains all styling for the mspbotsui component library */
+/* Uses design system variables from theme.css for consistency */
+
+:root {
+  /* Primary Button (Turquoise) */
+  --mspbots-button-primary-bg: var(--mspbots-primary);
+  --mspbots-button-primary-fg: var(--mspbots-primary-foreground);
+  --mspbots-button-primary-hover: var(--mspbots-primary-hover);
+  --mspbots-button-primary-active: var(--mspbots-primary-active);
+  --mspbots-button-primary-disabled-bg: var(--mspbots-primary-muted);
+  --mspbots-button-primary-disabled-fg: var(--mspbots-primary-muted-foreground);
+
+  /* Secondary Button (Light Turquoise) */
+  --mspbots-button-secondary-bg: #e8f7f6;
+  --mspbots-button-secondary-fg: var(--mspbots-primary);
+  --mspbots-button-secondary-border: #8bd9d1;
+  --mspbots-button-secondary-hover-bg: #d7f2f0;
+
+  /* Outline Button */
+  --mspbots-button-outline-bg: var(--background);
+  --mspbots-button-outline-fg: var(--secondary-foreground);
+  --mspbots-button-outline-border: var(--border);
+  --mspbots-button-outline-hover-bg: var(--secondary);
+
+  /* Ghost Button */
+  --mspbots-button-ghost-bg: transparent;
+  --mspbots-button-ghost-fg: var(--secondary-foreground);
+  --mspbots-button-ghost-hover: var(--secondary);
+
+  /* Button sizes */
+  --mspbots-button-size-sm: 32px;
+  --mspbots-button-size-md: 40px;
+  --mspbots-button-size-lg: 48px;
+  
+  /* Input styles */
+  --mspbots-input-bg: var(--input-background);
+  --mspbots-input-border: var(--border);
+  --mspbots-input-border-focus: var(--primary);
+  --mspbots-input-ring: var(--ring);
+  --mspbots-input-placeholder: var(--muted-foreground);
+  
+  /* Input states */
+  --mspbots-input-error-border: var(--destructive);
+  --mspbots-input-error-fg: var(--destructive);
+  --mspbots-input-success-border: rgba(103, 194, 58, 1.00);
+  --mspbots-input-success-fg: rgba(103, 194, 58, 1.00);
+}
+
+/* Button Base Styles */
+.mspbots-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-button);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.mspbots-button:active {
+  transform: scale(0.98);
+}
+
+.mspbots-button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Button Variants */
+.mspbots-button-primary {
+  background-color: var(--mspbots-button-primary-bg);
+  color: var(--mspbots-button-primary-fg);
+}
+
+.mspbots-button-primary:hover:not(:disabled) {
+  background-color: var(--mspbots-button-primary-hover);
+}
+
+.mspbots-button-primary:active:not(:disabled) {
+  background-color: var(--mspbots-button-primary-active);
+}
+
+.mspbots-button-secondary {
+  background-color: var(--mspbots-button-secondary-bg);
+  color: var(--mspbots-button-secondary-fg);
+  border: 1px solid var(--mspbots-button-secondary-border);
+}
+
+.mspbots-button-secondary:hover:not(:disabled) {
+  background-color: var(--mspbots-button-secondary-hover-bg);
+}
+
+.mspbots-button-outline {
+  background-color: var(--mspbots-button-outline-bg);
+  color: var(--mspbots-button-outline-fg);
+  border: 1px solid var(--mspbots-button-outline-border);
+}
+
+.mspbots-button-outline:hover:not(:disabled) {
+  background-color: var(--mspbots-button-outline-hover-bg);
+}
+
+.mspbots-button-ghost {
+  background-color: var(--mspbots-button-ghost-bg);
+  color: var(--mspbots-button-ghost-fg);
+}
+
+.mspbots-button-ghost:hover:not(:disabled) {
+  background-color: var(--mspbots-button-ghost-hover);
+}
+
+/* Button Sizes */
+.mspbots-button-sm {
+  height: 24px;
+  padding: 2px 12px;
+}
+
+.mspbots-button-md {
+  height: 32px;
+  padding: 4px 16px;
+}
+
+.mspbots-button-lg {
+  height: 40px;
+  padding: 8px 20px;
+}
+
+/* Input Container */
+.mspbots-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Input Label */
+.mspbots-input-label {
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+/* Input Wrapper */
+.mspbots-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Input Base */
+.mspbots-input {
+  width: 100%;
+  padding: 10px 16px;
+  background-color: var(--mspbots-input-bg);
+  border: 1px solid var(--mspbots-input-border);
+  border-radius: var(--radius-card);
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.mspbots-input::placeholder {
+  color: var(--mspbots-input-placeholder);
+}
+
+.mspbots-input:focus {
+  border-color: var(--mspbots-input-border-focus);
+  ring: 4px;
+  ring-color: rgba(28, 28, 30, 0.05);
+}
+
+/* Input with Icons */
+.mspbots-input-with-left-icon {
+  padding-left: 44px;
+}
+
+.mspbots-input-with-right-icon {
+  padding-right: 44px;
+}
+
+.mspbots-input-icon-left {
+  position: absolute;
+  left: 16px;
+  color: var(--muted-foreground);
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.mspbots-input-icon-right {
+  position: absolute;
+  right: 16px;
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+
+.mspbots-input-wrapper:focus-within .mspbots-input-icon-left {
+  color: var(--primary);
+}
+
+/* Input States */
+.mspbots-input-error {
+  border-color: var(--mspbots-input-error-border);
+  color: var(--mspbots-input-error-fg);
+}
+
+.mspbots-input-error:focus {
+  ring-color: rgba(245, 108, 108, 0.1);
+}
+
+.mspbots-input-success {
+  border-color: var(--mspbots-input-success-border);
+  color: var(--mspbots-input-success-fg);
+}
+
+.mspbots-input-success:focus {
+  ring-color: rgba(103, 194, 58, 0.1);
+}
+
+/* Input Message */
+.mspbots-input-message {
+  display: block;
+  line-height: 1.4;
+}
+
+.mspbots-input-message-error {
+  color: var(--mspbots-input-error-fg);
+}
+
+.mspbots-input-message-success {
+  color: var(--mspbots-input-success-fg);
+}

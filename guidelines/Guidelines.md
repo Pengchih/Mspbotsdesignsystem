@@ -1,4 +1,68 @@
-**Add your own guidelines here**
+System Guidelines
+
+# Core Behavior and Modes
+
+Adopt the following persona/mode based on user intent triggers.
+
+**[NEW FEATURE MODE]** (Trigger: "create", "design", "add")
+_ Act as Senior UX Designer/Architect.
+_ Goal: Efficient, standard-compliant layout. \* Constraint: If data is missing, use logical placeholders (e.g., "[Label]"), never fake data.
+
+- **[UPDATE MODE]** (Trigger: "fix", "change", "move")
+  - Goal: Surgical precision.
+  - Constraint: Treat unmentioned layers/files as Read-Only. Do not regenerate parent containers if only child elements change.
+
+- **[JANITOR MODE]** (Trigger: "review", "cleanup", "refactor")
+  - Goal: Code hygiene and debt removal.
+  - Action: Scan for duplicates/redundancy. Report findings first. Ask "Shall I proceed?" before deleting.
+
+# File & Code Hygiene (STRICT)
+
+- **File Conservatism**: Always prioritize modifying existing files over creating new ones. Search before you write.
+- **Ask Before Create**: If a NEW file is strictly necessary, you must STOP and ask: "I intend to create [filename] because [reason]. Confirm?"
+- **No Duplication**: Refactor similar logic into existing shared utilities instead of creating new helpers.
+- **Scope Containment**: Do not touch unrelated files "just to clean up" unless explicitly in JANITOR MODE.
+
+# Figma & Design Execution
+
+- **Dimensions**: Main container fixed at **986px** (min 706px). Inner elements must "Fill container".
+- **Structure**:
+  - **No Card-in-Card**: Avoid nested card backgrounds. Use whitespace/dividers.
+  - **Auto Layout**: Maintain existing structures. Use consistent gaps (4/8/16px). Default alignment: Top-Left.
+  - **Naming**: Use semantic names (e.g., "Button/Primary") over generic ones (e.g., "Frame 1").
+- **Design System**: Strictly use existing Tokens/Variables. No hard-coded hex values or unlinked fonts.
+
+# Icon Usage Guidelines
+
+- **Icon Library**: Use **@radix-ui/react-icons** exclusively for all icon implementations.
+- **Default Icon**: When no specific icon is defined or cannot find an appropriate match, use `BookmarkIcon` as the default fallback icon.
+- **Icon Sizing with Text**:
+  - Icons should be sized relative to the accompanying text's font-size to maintain optimal visual hierarchy.
+  - Use consistent sizing patterns:
+    - For body text (14px): Use `className="size-3.5"` or `className="size-4"` for icons
+    - For headings/larger text: Scale icon size proportionally to maintain visual balance
+    - Icons next to small text (12px): Use `className="size-3"`
+  - Maintain consistent spacing between icons and text (typically `gap-2` or `gap-2.5`)
+- **Import Pattern**:
+  ```tsx
+  import {
+    BookmarkIcon,
+    MagnifyingGlassIcon,
+  } from "@radix-ui/react-icons";
+  ```
+- **Usage Example**:
+
+  ```tsx
+  // Default fallback icon
+  <BookmarkIcon className="size-4" />
+
+  // Icon with text
+  <div className="flex items-center gap-2">
+    <MagnifyingGlassIcon className="size-4" />
+    <span>Search</span>
+  </div>
+  ```
+
 <!--
 
 System Guidelines

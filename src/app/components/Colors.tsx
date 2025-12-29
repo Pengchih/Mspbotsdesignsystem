@@ -21,20 +21,26 @@ const chartColors = [
 
 export function Colors() {
   return (
-    <div className="space-y-12">
+    <div className="space-y-20">
       <section>
-        <h2 className="mb-6">Core Palette</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="flex items-center justify-between mb-10 pb-4 border-b border-border/40">
+          <div>
+            <h3 className="tracking-tight">Core Palette</h3>
+            <p className="text-sm text-muted-foreground mt-1">Foundation colors for interface and identity.</p>
+          </div>
+          <span className="px-2 py-0.5 bg-muted text-[10px] font-bold text-muted-foreground rounded-sm uppercase tracking-tight">System Standards</span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12">
           {colors.map((color) => (
             <div key={color.name} className="group">
               <div 
-                className="h-24 w-full rounded-lg border border-border shadow-sm mb-3 transition-transform group-hover:scale-[1.02]"
+                className="h-32 w-full rounded-[var(--radius-card)] border border-border/50 mb-4 transition-all duration-300"
                 style={{ backgroundColor: color.variable }}
               />
               <div className="space-y-1">
-                <span className="block font-semibold">{color.name}</span>
-                <span className="block text-xs text-muted-foreground font-mono">{color.variable}</span>
-                <p className="text-sm text-muted-foreground">{color.description}</p>
+                <span className="block font-semibold text-sm">{color.name}</span>
+                <span className="block text-[10px] text-muted-foreground/70 font-mono tracking-tighter">{color.variable}</span>
+                <p className="text-xs text-muted-foreground leading-relaxed mt-2">{color.description}</p>
               </div>
             </div>
           ))}
@@ -42,15 +48,18 @@ export function Colors() {
       </section>
 
       <section>
-        <h2 className="mb-6">Chart Palette</h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div className="mb-10 pb-4 border-b border-border/40">
+          <h3 className="tracking-tight">Data Visualization</h3>
+          <p className="text-sm text-muted-foreground mt-1">Specialized palette for charts and metrics.</p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {chartColors.map((color) => (
-            <div key={color.name} className="space-y-2 text-center">
+            <div key={color.name} className="space-y-4 text-center">
               <div 
-                className="h-16 w-full rounded-md border border-border shadow-sm mx-auto"
+                className="h-20 w-full rounded-[var(--radius-card)] border border-border/40"
                 style={{ backgroundColor: color.variable }}
               />
-              <span className="text-xs font-medium text-muted-foreground">{color.name}</span>
+              <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">{color.name}</span>
             </div>
           ))}
         </div>
