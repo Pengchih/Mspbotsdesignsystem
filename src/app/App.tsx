@@ -2,8 +2,17 @@ import React, { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Colors } from './components/Colors';
 import { Typography } from './components/Typography';
+import { Icons } from './components/Icons';
 import { ButtonShowcase } from './components/ButtonShowcase';
 import { InputShowcase } from './components/InputShowcase';
+import { CheckboxShowcase } from './components/CheckboxShowcase';
+import { RadioShowcase } from './components/RadioShowcase';
+import { SwitchShowcase } from './components/SwitchShowcase';
+import { BadgeShowcase } from './components/BadgeShowcase';
+import { TextareaShowcase } from './components/TextareaShowcase';
+import { SelectShowcase } from './components/SelectShowcase';
+import { AvatarShowcase } from './components/AvatarShowcase';
+import { CardShowcase } from './components/CardShowcase';
 import { Foundation } from './pages/Foundation';
 import { Components } from './pages/Components';
 import { motion, AnimatePresence } from 'motion/react';
@@ -23,10 +32,28 @@ export default function App() {
         return <Colors />;
       case 'typography':
         return <Typography />;
+      case 'icons':
+        return <Icons />;
       case 'buttons':
         return <ButtonShowcase />;
       case 'inputs':
         return <InputShowcase />;
+      case 'checkbox':
+        return <CheckboxShowcase />;
+      case 'radio':
+        return <RadioShowcase />;
+      case 'switch':
+        return <SwitchShowcase />;
+      case 'badge':
+        return <BadgeShowcase />;
+      case 'textarea':
+        return <TextareaShowcase />;
+      case 'select':
+        return <SelectShowcase />;
+      case 'avatar':
+        return <AvatarShowcase />;
+      case 'card':
+        return <CardShowcase />;
       case 'foundation':
         return <Foundation onNavigate={setActiveTab} />;
       case 'components':
@@ -37,7 +64,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground font-inter">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Top Navigation */}
       <header className="h-16 border-b border-border/40 bg-background fixed top-0 left-0 right-0 z-30 flex items-center justify-center">
         <div className="flex items-center gap-1">
@@ -71,10 +98,8 @@ export default function App() {
           setActiveTab={setActiveTab} 
         />
         
-        <main className="flex-1 ml-64 p-12 lg:p-20 overflow-y-auto min-h-[calc(100vh-64px)] bg-background scroll-smooth">
-          <div className="max-w-[986px] min-w-[706px] mx-auto [&_h1]:mb-4 [&_h2]:mt-24 [&_h2]:mb-8 [&_h3]:mt-16 [&_h3]:mb-6 [&_p]:leading-relaxed">
-            {/* Page content rendered here */}
-            
+        <main className="flex-1 ml-64 lg:p-20 overflow-y-auto min-h-[calc(100vh-64px)] bg-background scroll-smooth p-[40px]">
+          <div className="w-full">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}

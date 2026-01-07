@@ -8,7 +8,18 @@ import {
   ComponentBooleanIcon, 
   ChevronRightIcon, 
   ChevronDownIcon, 
-  DragHandleVerticalIcon 
+  DragHandleVerticalIcon,
+  CircleIcon,
+  FrameIcon,
+  TextNoneIcon,
+  CheckboxIcon,
+  RadiobuttonIcon,
+  IdCardIcon,
+  SliderIcon,
+  TextAlignLeftIcon,
+  DropdownMenuIcon,
+  PersonIcon,
+  CardStackIcon
 } from '@radix-ui/react-icons';
 
 interface SidebarProps {
@@ -22,6 +33,17 @@ export function Sidebar({ activeCategory, activeTab, setActiveTab }: SidebarProp
   const [isComponentsOpen, setIsComponentsOpen] = useState(true);
   const [width, setWidth] = useState(260);
   const [isResizing, setIsResizing] = useState(false);
+  
+  // New state for nested sections
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
+    color: true,
+    typography: true,
+    icons: true
+  });
+
+  const toggleSection = (id: string) => {
+    setOpenSections(prev => ({ ...prev, [id]: !prev[id] }));
+  };
 
   const startResizing = useCallback(() => {
     setIsResizing(true);
@@ -57,16 +79,32 @@ export function Sidebar({ activeCategory, activeTab, setActiveTab }: SidebarProp
     };
   }, [isResizing, resize, stopResizing]);
 
-  const foundationItems = [
-    { id: 'foundation', label: 'Overview', icon: LayersIcon },
-    { id: 'typography', label: 'Typography', icon: FontFamilyIcon },
-    { id: 'colors', label: 'Colors', icon: ColorWheelIcon },
+  const foundationItems = [];
+
+  const colorItems = [
+    { id: 'colors', label: 'Color Palette', icon: CircleIcon },
+  ];
+
+  const iconItems = [
+    { id: 'icons', label: 'Radix Icons', icon: FrameIcon },
+  ];
+
+  const typographyItems = [
+    { id: 'typography', label: 'Scales', icon: TextNoneIcon },
   ];
 
   const componentItems = [
     { id: 'components', label: 'Overview', icon: ComponentInstanceIcon },
     { id: 'buttons', label: 'Buttons', icon: ComponentBooleanIcon },
     { id: 'inputs', label: 'Inputs', icon: DesktopIcon },
+    { id: 'textarea', label: 'Textarea', icon: TextAlignLeftIcon },
+    { id: 'select', label: 'Select', icon: DropdownMenuIcon },
+    { id: 'checkbox', label: 'Checkbox', icon: CheckboxIcon },
+    { id: 'radio', label: 'Radio Group', icon: RadiobuttonIcon },
+    { id: 'switch', label: 'Switch', icon: SliderIcon },
+    { id: 'badge', label: 'Badge', icon: IdCardIcon },
+    { id: 'avatar', label: 'Avatar', icon: PersonIcon },
+    { id: 'card', label: 'Card', icon: CardStackIcon },
   ];
 
   const currentItems = activeCategory === 'foundation' ? foundationItems : componentItems;
@@ -76,21 +114,24 @@ export function Sidebar({ activeCategory, activeTab, setActiveTab }: SidebarProp
     title: string, 
     items: any[], 
     isOpen: boolean, 
-    setIsOpen: (val: boolean) => void
+    setIsOpen: (val: boolean) => void,
+    collapsible = true
   ) => (
     <div className="space-y-0.5">
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center gap-1.5 px-2 py-1.5 text-[11px] font-bold text-muted-foreground/60 uppercase tracking-widest hover:text-foreground transition-colors cursor-pointer"
+        onClick={() => collapsible && setIsOpen(!isOpen)}
+        className={`w-full flex items-center gap-1.5 px-2 py-1.5 text-[11px] font-bold text-muted-foreground/60 uppercase tracking-widest hover:text-foreground transition-colors ${collapsible ? 'cursor-pointer' : 'cursor-default'}`}
       >
-        <span className="transition-transform duration-200">
-          {isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
-        </span>
+        {collapsible && (
+          <span className="transition-transform duration-200">
+            {isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
+          </span>
+        )}
         <span>{title}</span>
       </button>
       
       {isOpen && (
-        <div className="ml-3.5 pl-3 border-l border-border/40 space-y-0.5 mt-0.5 py-1">
+        <div className={`${collapsible ? 'ml-3.5 pl-3 border-l border-border/40' : ''} space-y-0.5 mt-0.5 py-1`}>
           {items.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -104,7 +145,7 @@ export function Sidebar({ activeCategory, activeTab, setActiveTab }: SidebarProp
                     : 'text-muted-foreground hover:bg-muted/40 hover:text-foreground'
                 }`}
               >
-                <Icon className={`transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground/40 group-hover:text-muted-foreground/70'}`} />
+                <Icon className={`transition-colors size-[15px] ${isActive ? 'text-primary' : 'text-muted-foreground/40 group-hover:text-muted-foreground/70'}`} />
                 <span className="truncate">{item.label}</span>
               </button>
             );
@@ -119,9 +160,13 @@ export function Sidebar({ activeCategory, activeTab, setActiveTab }: SidebarProp
       className="h-[calc(100vh-64px)] bg-sidebar border-r border-border/60 flex flex-col fixed left-0 top-16 z-20"
       style={{ width: `${width}px` }}
     >
-      <nav className="flex-1 p-4 overflow-y-auto space-y-4 select-none scrollbar-hide">
+      <nav className="flex-1 p-4 overflow-y-auto space-y-6 select-none scrollbar-hide">
         {activeCategory === 'foundation' ? (
-          renderSection('Core Foundation', foundationItems, isFoundationOpen, setIsFoundationOpen)
+          <>
+            {renderSection('Color', colorItems, openSections.color, () => toggleSection('color'))}
+            {renderSection('Icons', iconItems, openSections.icons, () => toggleSection('icons'))}
+            {renderSection('Typography', typographyItems, openSections.typography, () => toggleSection('typography'))}
+          </>
         ) : (
           renderSection('Component Library', componentItems, isComponentsOpen, setIsComponentsOpen)
         )}

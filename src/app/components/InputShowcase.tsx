@@ -1,83 +1,156 @@
 import React from 'react';
-import { ComponentPageLayout, ComponentSection, ApiReference } from './ComponentPageLayout';
-import { Input } from './mspbotsui';
-import { MagnifyingGlassIcon, EnvelopeClosedIcon, LockClosedIcon, CheckCircledIcon } from '@radix-ui/react-icons';
+import { ComponentExample } from './ComponentExample';
+import { MagnifyingGlassIcon, EnvelopeClosedIcon } from '@radix-ui/react-icons';
 
 export function InputShowcase() {
-  const props = [
-    { name: 'label', type: 'string', default: 'undefined' },
-    { name: 'error', type: 'string', default: 'undefined' },
-    { name: 'success', type: 'string', default: 'undefined' },
-    { name: 'leftIcon', type: 'ReactNode', default: 'undefined' },
-    { name: 'rightIcon', type: 'ReactNode', default: 'undefined' },
-    { name: 'type', type: 'string', default: '"text"' },
-  ];
-
   return (
-    <ComponentPageLayout
-      title="Input"
-      description="Foundational controls for manual data entry and interaction patterns."
-      props={props}
-      prev={{ label: 'Button', href: '#' }}
-    >
-      <ComponentSection 
-        code={`<Input placeholder="Placeholder" />`}
-      >
-        <div className="w-full max-w-sm">
-          <Input placeholder="Placeholder" />
-        </div>
-      </ComponentSection>
-
-      <ApiReference props={props} />
-
-      <div className="space-y-20">
-        <ComponentSection 
-          title="Basic"
-          description="Use the Input component to capture user text input."
-          code={`<Input 
-  placeholder="Find components..." 
-  leftIcon={<MagnifyingGlassIcon />} 
-/>`}
-        >
-          <div className="w-full max-w-sm">
-            <Input placeholder="Find components..." leftIcon={<MagnifyingGlassIcon />} />
-          </div>
-        </ComponentSection>
-
-        <ComponentSection 
-          title="Validation States" 
-          description="Provide feedback for error and success states."
-          code={`<Flex direction="column" gap="4">
-  <Input error="Invalid email format" defaultValue="user@invalid" />
-  <Input success="Username available" defaultValue="mspbots-pro" />
-</Flex>`}
-        >
-          <div className="w-full max-w-md grid grid-cols-1 sm:grid-cols-2 gap-8">
-            <Input label="Error State" error="Invalid email format" defaultValue="user@invalid" />
-            <Input label="Success State" success="Username available" defaultValue="mspbots-pro" />
-          </div>
-        </ComponentSection>
-
-        <ComponentSection 
-          title="Password" 
-          description="Standard password input pattern."
-          code={`<Input type="password" label="Password" placeholder="••••••••" />`}
-        >
-          <div className="w-full max-w-sm">
-            <Input type="password" label="Password" placeholder="••••••••" leftIcon={<LockClosedIcon />} />
-          </div>
-        </ComponentSection>
-
-        <ComponentSection 
-          title="Disabled" 
-          description="Prevent user interaction using the disabled prop."
-          code={`<Input disabled label="Disabled Input" placeholder="You cannot type here" />`}
-        >
-          <div className="w-full max-w-sm">
-            <Input disabled label="Disabled Input" placeholder="You cannot type here" />
-          </div>
-        </ComponentSection>
+    <div className="w-fit mx-auto space-y-10 pb-20">
+      <div className="space-y-4">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Input</h1>
+        <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+          Displays a form input field or a component that looks like an input field.
+          Supports labels, icons, and validation states.
+        </p>
       </div>
-    </ComponentPageLayout>
+
+      {/* General Preview */}
+      <div className="flex flex-wrap gap-4 p-12 border border-border rounded-[8px] bg-background items-center justify-center min-h-[160px]">
+        <div className="w-full max-w-xs">
+          <input type="text" className="mspbots-input" placeholder="Type something..." />
+        </div>
+      </div>
+
+      <div className="space-y-12">
+        <ComponentExample
+          title="Default"
+          description="A standard text input field."
+          code={`<input type="text" className="mspbots-input" placeholder="Email" />`}
+        >
+          <div className="w-full max-w-sm">
+            <input type="text" className="mspbots-input" placeholder="Email" />
+          </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="With Label"
+          description="Wrap the input in a container with a label for better accessibility."
+          code={`<div className="mspbots-input-container">
+  <label className="mspbots-input-label">Email</label>
+  <input type="email" className="mspbots-input" placeholder="name@example.com" />
+</div>`}
+        >
+          <div className="w-full max-w-sm mspbots-input-container">
+            <label className="mspbots-input-label">Email</label>
+            <input type="email" className="mspbots-input" placeholder="name@example.com" />
+          </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="With Icons"
+          description="Add icons to the left or right of the input to provide context. Use 15px icons."
+          code={`import { MagnifyingGlassIcon, EnvelopeClosedIcon } from '@radix-ui/react-icons';
+
+<div className="mspbots-input-wrapper">
+  <MagnifyingGlassIcon className="mspbots-input-icon-left w-[15px] h-[15px]" />
+  <input 
+    type="text" 
+    className="mspbots-input mspbots-input-with-left-icon" 
+    placeholder="Search..." 
+  />
+</div>
+
+<div className="mspbots-input-wrapper">
+  <EnvelopeClosedIcon className="mspbots-input-icon-left w-[15px] h-[15px]" />
+  <input 
+    type="email" 
+    className="mspbots-input mspbots-input-with-left-icon" 
+    placeholder="Email" 
+  />
+</div>`}
+        >
+          <div className="w-full max-w-sm space-y-4">
+            <div className="mspbots-input-wrapper">
+              <MagnifyingGlassIcon className="mspbots-input-icon-left w-[15px] h-[15px]" />
+              <input 
+                type="text" 
+                className="mspbots-input mspbots-input-with-left-icon" 
+                placeholder="Search..." 
+              />
+            </div>
+            <div className="mspbots-input-wrapper">
+              <EnvelopeClosedIcon className="mspbots-input-icon-left w-[15px] h-[15px]" />
+              <input 
+                type="email" 
+                className="mspbots-input mspbots-input-with-left-icon" 
+                placeholder="Email" 
+              />
+            </div>
+          </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="Validation States"
+          description="Visual cues for error and success states."
+          code={`<div className="mspbots-input-container">
+  <label className="mspbots-input-label">Error State</label>
+  <input 
+    type="text" 
+    className="mspbots-input mspbots-input-error" 
+    defaultValue="Invalid value" 
+  />
+  <span className="mspbots-input-message mspbots-input-message-error text-xs">
+    Invalid input
+  </span>
+</div>
+
+<div className="mspbots-input-container">
+  <label className="mspbots-input-label">Success State</label>
+  <input 
+    type="text" 
+    className="mspbots-input mspbots-input-success" 
+    defaultValue="Valid value" 
+  />
+  <span className="mspbots-input-message mspbots-input-message-success text-xs">
+    Great job!
+  </span>
+</div>`}
+        >
+          <div className="w-full max-w-sm space-y-6">
+            <div className="mspbots-input-container">
+              <label className="mspbots-input-label">Error State</label>
+              <input 
+                type="text" 
+                className="mspbots-input mspbots-input-error" 
+                defaultValue="Invalid value" 
+              />
+              <span className="mspbots-input-message mspbots-input-message-error text-xs">
+                Invalid input
+              </span>
+            </div>
+            <div className="mspbots-input-container">
+              <label className="mspbots-input-label">Success State</label>
+              <input 
+                type="text" 
+                className="mspbots-input mspbots-input-success" 
+                defaultValue="Valid value" 
+              />
+              <span className="mspbots-input-message mspbots-input-message-success text-xs">
+                Great job!
+              </span>
+            </div>
+          </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="Disabled"
+          description="Prevent interaction with the disabled attribute."
+          code={`<input type="text" className="mspbots-input" disabled placeholder="Disabled input" />`}
+        >
+          <div className="w-full max-w-sm">
+            <input type="text" className="mspbots-input" disabled placeholder="Disabled input" />
+          </div>
+        </ComponentExample>
+      </div>
+    </div>
   );
 }

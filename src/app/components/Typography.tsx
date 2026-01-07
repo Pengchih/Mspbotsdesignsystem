@@ -1,58 +1,122 @@
 import React from 'react';
+import { CopyIcon } from '@radix-ui/react-icons';
+import { toast } from 'sonner';
+import { copyToClipboard } from '../utils/clipboard';
 
-export function Typography() {
-  const styles = [
-    { tag: 'h1', name: 'H1 Display', description: 'Used for main page titles' },
-    { tag: 'h2', name: 'H2 Section', description: 'Used for section headers' },
-    { tag: 'h3', name: 'H3 Subsection', description: 'Used for subsection headers' },
-    { tag: 'h4', name: 'H4 Detail', description: 'Used for small titles' },
-    { tag: 'p', name: 'Body Base', description: 'Main text content for paragraphs' },
-    { tag: 'span', name: 'Caption/Label', description: 'Secondary text and labels' },
-  ];
+const TypographyItem = ({ 
+  label, 
+  sample, 
+  details, 
+  variable 
+}: { 
+  label: string; 
+  sample: React.ReactNode; 
+  details: string;
+  variable?: string;
+}) => {
+  const handleCopy = async () => {
+    if (variable) {
+      await copyToClipboard(`var(${variable})`, `Copied ${variable} to clipboard`);
+    }
+  };
 
   return (
-    <div className="space-y-20">
-      <section>
-        <div className="mb-12 pb-4 border-b border-border/40">
-          <h3 className="tracking-tight mb-2">Typography System</h3>
-          <p className="text-sm text-muted-foreground">Our type system ensures high readability and clean visual hierarchy.</p>
-        </div>
-        <div className="space-y-12">
-          {styles.map((style) => {
-            const Tag = style.tag as any;
-            return (
-              <div key={style.tag} className="grid grid-cols-1 md:grid-cols-4 gap-8 group">
-                <div className="space-y-1 md:col-span-1 pt-1">
-                  <span className="text-xs font-bold text-primary/80 uppercase tracking-widest">{style.tag}</span>
-                  <p className="text-sm font-semibold text-foreground">{style.name}</p>
-                  <p className="text-[11px] text-muted-foreground leading-relaxed mt-2">{style.description}</p>
-                </div>
-                <div className="md:col-span-3 flex items-center bg-muted/10 px-10 py-12 rounded-[var(--radius-card)] border border-border/20 transition-colors group-hover:bg-muted/20">
-                  <Tag className="text-foreground leading-tight">
-                    Sphinx of black quartz, judge my vow.
-                  </Tag>
-                </div>
-              </div>
-            );
-          })}
+    <div className="flex flex-col gap-4 p-6 rounded-lg border border-border bg-card hover:shadow-sm transition-all duration-200">
+      <div className="flex items-start justify-between">
+        <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{label}</span>
+        {variable && (
+          <button 
+            onClick={handleCopy}
+            className="text-xs flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-md hover:bg-muted"
+            title="Copy variable"
+          >
+            <code className="font-mono">{variable}</code>
+            <CopyIcon className="w-3.5 h-3.5" />
+          </button>
+        )}
+      </div>
+      <div className="py-2 border-b border-border/50">
+        {sample}
+      </div>
+      <p className="text-sm text-muted-foreground font-mono">{details}</p>
+    </div>
+  );
+};
+
+export function Typography() {
+  return (
+    <div className="w-fit mx-auto space-y-10 pb-20">
+      <div className="space-y-4">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Typography</h1>
+        <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+          The typographic system uses a combination of Raleway for headings and Inter for body text.
+          All sizes are defined via CSS variables for consistency.
+        </p>
+      </div>
+
+      <section className="space-y-6">
+        <h3 className="text-lg font-semibold tracking-tight border-b border-border/40 pb-4">Headings</h3>
+        <div className="grid gap-6">
+          <TypographyItem 
+            label="Heading 1" 
+            variable="--text-h1"
+            sample={<h1 className="m-0">The quick brown fox</h1>}
+            details="Font: Raleway / Size: 47px / Weight: Semibold (600)"
+          />
+          <TypographyItem 
+            label="Heading 2" 
+            variable="--text-h2"
+            sample={<h2 className="m-0">The quick brown fox</h2>}
+            details="Font: Raleway / Size: 41px / Weight: Semibold (600)"
+          />
+          <TypographyItem 
+            label="Heading 3" 
+            variable="--text-h3"
+            sample={<h3 className="m-0">The quick brown fox</h3>}
+            details="Font: Raleway / Size: 36px / Weight: Semibold (600)"
+          />
+          <TypographyItem 
+            label="Heading 4" 
+            variable="--text-h4"
+            sample={<h4 className="m-0">The quick brown fox</h4>}
+            details="Font: Raleway / Size: 31px / Weight: Semibold (600)"
+          />
         </div>
       </section>
 
-      <section className="pt-12 border-t border-border/40">
-        <h4 className="mb-6 font-semibold">Implementation Guidelines</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div className="space-y-4">
-            <h5 className="text-sm font-bold uppercase tracking-wider text-muted-foreground/60">Legibility</h5>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Font families are globally consistent, leveraging system fonts for maximum performance and native-like feel.
-            </p>
-          </div>
-          <div className="space-y-4">
-            <h5 className="text-sm font-bold uppercase tracking-wider text-muted-foreground/60">Structure</h5>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Maintain vertical rhythm by sticking to the defined line-heights and spacing tokens across all layouts.
-            </p>
-          </div>
+      <section className="space-y-6">
+        <h3 className="text-lg font-semibold tracking-tight border-b border-border/40 pb-4">Body</h3>
+        <div className="grid gap-6">
+          <TypographyItem 
+            label="Base Text" 
+            variable="--text-base"
+            sample={<p className="m-0">The quick brown fox jumps over the lazy dog. It acts as a primary typeface for body text.</p>}
+            details="Font: Inter / Size: 14px / Weight: Regular (400)"
+          />
+          <TypographyItem 
+            label="Small Text" 
+            variable="--text-sm"
+            sample={<p className="m-0 text-[length:var(--text-sm)]">The quick brown fox jumps over the lazy dog. Used for captions and secondary text.</p>}
+            details="Font: Inter / Size: 12px / Weight: Regular (400)"
+          />
+        </div>
+      </section>
+
+      <section className="space-y-6">
+        <h3 className="text-lg font-semibold tracking-tight border-b border-border/40 pb-4">Weights</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <TypographyItem 
+            label="Regular" 
+            variable="--font-weight-regular"
+            sample={<p className="m-0 font-[400] text-2xl">Aa</p>}
+            details="Weight: 400"
+          />
+          <TypographyItem 
+            label="Semibold" 
+            variable="--font-weight-semibold"
+            sample={<p className="m-0 font-[600] text-2xl">Aa</p>}
+            details="Weight: 600"
+          />
         </div>
       </section>
     </div>

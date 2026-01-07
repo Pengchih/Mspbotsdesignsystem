@@ -1,69 +1,130 @@
 import React from 'react';
+import { registryColors } from '../../styles/registry-colors';
 
-const colors = [
-  { name: 'Primary', variable: 'var(--primary)', description: 'Main action color' },
-  { name: 'Background', variable: 'var(--background)', description: 'Main page background' },
-  { name: 'Foreground', variable: 'var(--foreground)', description: 'Default text color' },
-  { name: 'Card', variable: 'var(--card)', description: 'Container background' },
-  { name: 'Muted', variable: 'var(--muted)', description: 'Subtle backgrounds' },
-  { name: 'Border', variable: 'var(--border)', description: 'Component borders' },
-  { name: 'Accent', variable: 'var(--accent)', description: 'Highlight color' },
-  { name: 'Destructive', variable: 'var(--destructive)', description: 'Error/Delete actions' },
-];
-
-const chartColors = [
-  { name: 'Chart 1', variable: 'var(--chart-1)' },
-  { name: 'Chart 2', variable: 'var(--chart-2)' },
-  { name: 'Chart 3', variable: 'var(--chart-3)' },
-  { name: 'Chart 4', variable: 'var(--chart-4)' },
-  { name: 'Chart 5', variable: 'var(--chart-5)' },
-];
+const SHADES = [100, 200, 300, 400, 500, 600, 700, 800, 900];
+const GRAYSCALE_SHADES = [50, 100, 200, 300, 400, 500, 550, 600, 650, 700, 750, 800, 900];
 
 export function Colors() {
-  return (
-    <div className="space-y-20">
-      <section>
-        <div className="flex items-center justify-between mb-10 pb-4 border-b border-border/40">
-          <div>
-            <h3 className="tracking-tight">Core Palette</h3>
-            <p className="text-sm text-muted-foreground mt-1">Foundation colors for interface and identity.</p>
-          </div>
-          <span className="px-2 py-0.5 bg-muted text-[10px] font-bold text-muted-foreground rounded-sm uppercase tracking-tight">System Standards</span>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12">
-          {colors.map((color) => (
-            <div key={color.name} className="group">
-              <div 
-                className="h-32 w-full rounded-[var(--radius-card)] border border-border/50 mb-4 transition-all duration-300"
-                style={{ backgroundColor: color.variable }}
-              />
-              <div className="space-y-1">
-                <span className="block font-semibold text-sm">{color.name}</span>
-                <span className="block text-[10px] text-muted-foreground/70 font-mono tracking-tighter">{color.variable}</span>
-                <p className="text-xs text-muted-foreground leading-relaxed mt-2">{color.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+  const grayscaleData = {
+    gray: registryColors.gray,
+    slate: registryColors.slate,
+  };
 
-      <section>
-        <div className="mb-10 pb-4 border-b border-border/40">
-          <h3 className="tracking-tight">Data Visualization</h3>
-          <p className="text-sm text-muted-foreground mt-1">Specialized palette for charts and metrics.</p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-          {chartColors.map((color) => (
-            <div key={color.name} className="space-y-4 text-center">
+  const paletteData = Object.fromEntries(
+    Object.entries(registryColors).filter(
+      ([key]) => key !== 'gray' && key !== 'slate'
+    )
+  );
+
+  return (
+    <div className="w-fit mx-auto space-y-10 pb-20">
+      <div className="space-y-4">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Color Palette</h1>
+        <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+          The MSPBots color system is designed to be accessible, consistent, and semantic.
+          All colors are defined as CSS variables.
+        </p>
+      </div>
+
+      <div className="min-w-fit space-y-12">
+        {/* Main Colors Section */}
+        <div>
+          {/* Header Row */}
+          <div className="flex gap-2 mb-4 items-center">
+            <div className="w-40 shrink-0" /> {/* Empty Label Column */}
+            {SHADES.map((shade) => (
               <div 
-                className="h-20 w-full rounded-[var(--radius-card)] border border-border/40"
-                style={{ backgroundColor: color.variable }}
-              />
-              <span className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">{color.name}</span>
-            </div>
-          ))}
+                key={shade} 
+                className="w-24 shrink-0 text-center text-sm font-medium text-muted-foreground"
+              >
+                {shade}
+              </div>
+            ))}
+          </div>
+
+          {/* Color Rows */}
+          <div className="space-y-2">
+            {Object.entries(paletteData).map(([colorName, shades]) => (
+              <div key={colorName} className="flex gap-2 items-center">
+                {/* Color Label */}
+                <div className="w-40 shrink-0 text-base font-medium text-foreground capitalize">
+                  {colorName}
+                </div>
+
+                {/* Swatches */}
+                {SHADES.map((shade) => {
+                  const colorInfo = shades.find(s => s.scale === shade);
+                  if (!colorInfo) return <div key={shade} className="w-24 h-12 shrink-0" />;
+                  
+                  return (
+                    <div
+                      key={shade}
+                      className="w-24 h-12 rounded bg-muted relative border border-black/5 shrink-0 transition-all duration-200 ease-in-out hover:shadow-sm hover:border-black/15 hover:z-10 cursor-help group"
+                      style={{ 
+                        backgroundColor: colorInfo.hex,
+                      }}
+                      title={`${colorName}-${shade}\nHex: ${colorInfo.hex}\nRGB: ${colorInfo.rgb}\nHSL: ${colorInfo.hsl}\nOKLCH: ${colorInfo.oklch}`}
+                    >
+                      {/* Primary Shade Indicator */}
+                      {shade === 500 && (
+                        <div className="absolute top-2 right-2 w-2.5 h-2.5 bg-white rounded-full shadow-sm ring-1 ring-black/10 flex items-center justify-center">
+                          <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
-      </section>
+
+        {/* Grayscale Section */}
+        <div>
+          {/* Header Row */}
+          <div className="flex gap-2 mb-4 items-center">
+            <div className="w-40 shrink-0" /> {/* Empty Label Column */}
+            {GRAYSCALE_SHADES.map((shade) => (
+              <div 
+                key={shade} 
+                className="w-24 shrink-0 text-center text-sm font-medium text-muted-foreground"
+              >
+                {shade}
+              </div>
+            ))}
+          </div>
+
+          {/* Color Rows */}
+          <div className="space-y-2">
+            {Object.entries(grayscaleData).map(([colorName, shades]) => (
+              <div key={colorName} className="flex gap-2 items-center">
+                {/* Color Label */}
+                <div className="w-40 shrink-0 text-base font-medium text-foreground capitalize">
+                  {colorName}
+                </div>
+
+                {/* Swatches */}
+                {GRAYSCALE_SHADES.map((shade) => {
+                  const colorInfo = shades.find(s => s.scale === shade);
+                  if (!colorInfo) return <div key={shade} className="w-24 h-12 shrink-0" />;
+
+                  return (
+                    <div
+                      key={shade}
+                      className="w-24 h-12 rounded bg-muted relative border border-black/5 shrink-0 transition-all duration-200 ease-in-out hover:shadow-sm hover:border-black/15 hover:z-10 cursor-help"
+                      style={{ 
+                        backgroundColor: colorInfo.hex,
+                      }}
+                      title={`${colorName}-${shade}\nHex: ${colorInfo.hex}\nRGB: ${colorInfo.rgb}\nHSL: ${colorInfo.hsl}\nOKLCH: ${colorInfo.oklch}`}
+                    >
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

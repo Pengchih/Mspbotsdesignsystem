@@ -11,12 +11,12 @@
   --text-sm: 12px;
   
   /* MSPBots Brand Colors (Turquoise) */
-  --mspbots-primary: #17b3a3;
+  --mspbots-primary: #17B3A3;
   --mspbots-primary-foreground: #FCFCFC;
   --mspbots-primary-hover: #45c2b5;
   --mspbots-primary-active: #15a193;
-  --mspbots-primary-muted: #e8e8e8;
-  --mspbots-primary-muted-foreground: #c0c4cc;
+  --mspbots-primary-muted: #E8E8E8;
+  --mspbots-primary-muted-foreground: #C0C4CC;
   
   /* Font weights */
   --font-weight-regular: 400;
@@ -25,15 +25,15 @@
   /* The default background color for the application. */
   --background: rgba(255, 255, 255, 1.00);
   /* The default color for elements or text that appears on top of the background. */
-  --foreground: rgba(48, 49, 51, 1.00);
+  --foreground: #303133;
   /* The background color for cards, modals, and other containers. */
   --card: rgba(255, 255, 255, 1.00);
   /* The default color for text or elements that appear on top of cards, modals and other background containers. */
-  --card-foreground: rgba(48, 49, 51, 1.00);
+  --card-foreground: #303133;
   /* The background color for dropdowns and tooltips. */
   --popover: rgba(255, 255, 255, 1.00);
   /* The default color for text or elements that appear on top of dropdowns and tooltips. */
-  --popover-foreground: rgba(48, 49, 51, 1.00);
+  --popover-foreground: #303133;
   /* The primary color used for buttons, links, and other interactive elements. */
   --primary: rgba(28, 28, 30, 1.00);
   /* The default color for text or elements that appear on top of primary colored elements. */
@@ -41,7 +41,7 @@
   /* The secondary color used for secondary(but NOT-DESTRUCTIVE) buttons and interactive elements. */
   --secondary: rgba(242, 242, 247, 1.00);
   /* The default color for text or elements that appear on top of secondary colored elements. */
-  --secondary-foreground: rgba(96, 98, 102, 1.00);
+  --secondary-foreground: #606266;
   /* The muted color used for less prominent elements, such as disabled buttons or disabled text. */
   --muted: rgba(241, 241, 241, 1.00);
   /* The default color for text or elements that appear on top of muted colored elements. */
@@ -55,7 +55,7 @@
   /* The default color for text or elements that appear on top of destructive colored elements. */
   --destructive-foreground: rgba(255, 255, 255, 1.00);
   /* The default border color for elements such as inputs, buttons, and other containers. */
-  --border: rgba(220, 223, 230, 1.00);
+  --border: #DCDFE6;
   /* The default background color for input fields once the text has been filled. Should be either transparent or match the input-background. */
   --input: rgba(255, 255, 255, 1.00);
   /* The default background color for input fields, text areas, and other input elements. */
@@ -67,17 +67,17 @@
   /* The color for chart elements, such as a bar or line in a chart. */
   --chart-1: rgba(64, 158, 255, 1.00);
   /* The color for another chart element, such as a bar or line in a chart. */
-  --chart-2: rgba(103, 194, 58, 1.00);
+  --chart-2: #67C23A;
   /* The color for another chart element, such as a bar or line in a chart. */
   --chart-3: rgba(230, 162, 60, 1.00);
   /* The color for another chart element, such as a bar or line in a chart. */
   --chart-4: rgba(245, 108, 108, 1.00);
   /* The color for another chart element, such as a bar or line in a chart. */
-  --chart-5: rgba(144, 147, 153, 1.00);
+  --chart-5: #909399;
   /* The default border radius for elements such as buttons, tooltip, and other containers. */
   --radius: 4px;
   /* The border radius specifically for buttons */
-  --radius-button: 3px;
+  --radius-button: 4px;
   /* The border radius specifically for cards and larger containers */
   --radius-card: 8px;
   --radius-lg: 12px;
@@ -85,7 +85,7 @@
   /* The background color for sidebars, navigation menus, and other persistent elements. */
   --sidebar: rgba(255, 255, 255, 1.00);
   /* The default color for text or elements that appear on top of sidebars, navigation menus, and other persistent elements. */
-  --sidebar-foreground: rgba(48, 49, 51, 1.00);
+  --sidebar-foreground: #303133;
   /* The primary color used for buttons, links, and other interactive elements in sidebars and navigation menus. */
   --sidebar-primary: rgba(28, 28, 30, 1.00);
   /* The default color for text or elements that appear on top of primary colored elements in sidebars and navigation menus. */
@@ -95,9 +95,9 @@
   /* The default color for text or elements that appear on top of accent colored elements in sidebars and navigation menus. */
   --sidebar-accent-foreground: rgba(255, 255, 255, 1.00);
   /* The default border color for elements in sidebars and navigation menus. */
-  --sidebar-border: rgba(220, 223, 230, 1.00);
+  --sidebar-border: #DCDFE6;
   /* The default color for focus rings, outlines, and other focus indicators in sidebars and navigation menus. */
-  --sidebar-ring: rgba(23, 179, 163, 1.00);
+  --sidebar-ring: #17B3A3;
 }
 
 @theme inline {

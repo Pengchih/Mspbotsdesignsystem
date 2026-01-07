@@ -1,112 +1,136 @@
 import React from 'react';
-import { ComponentPageLayout, ComponentSection } from './ComponentPageLayout';
-import { Button } from './mspbotsui';
-import { BookmarkIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { ComponentExample } from './ComponentExample';
+import { 
+  PlayIcon, 
+  PlusIcon, 
+  TrashIcon, 
+  Share1Icon, 
+  DownloadIcon,
+  PaperPlaneIcon
+} from '@radix-ui/react-icons';
 
 export function ButtonShowcase() {
   return (
-    <ComponentPageLayout
-      title="Button"
-      description="Trigger an action or event, such as submitting a form or displaying a dialog."
-      next={{ label: 'Input', href: '#' }}
-    >
-      {/* Main Preview */}
-      <ComponentSection 
-        code={`<div className="flex gap-4">
-  <Button variant="primary">Primary</Button>
-  <Button variant="secondary">Secondary</Button>
-  <Button variant="outline">Outline</Button>
-  <Button variant="ghost">Ghost</Button>
-</div>`}
-      >
-        <div className="flex gap-4">
-          <Button variant="primary">Primary</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="outline">Outline</Button>
-          <Button variant="ghost">Ghost</Button>
-        </div>
-      </ComponentSection>
-
-      {/* Examples */}
-      <div className="space-y-20">
-        <ComponentSection 
-          title="Variant" 
-          description="Use the variant prop to control the visual style of the button."
-          code={`<div className="flex flex-wrap gap-4">
-  <Button variant="primary">Primary</Button>
-  <Button variant="secondary">Secondary</Button>
-  <Button variant="outline">Outline</Button>
-  <Button variant="ghost">Ghost</Button>
-</div>`}
-        >
-          <div className="flex flex-wrap gap-4">
-            <Button variant="primary">Primary</Button>
-            <Button variant="secondary">Secondary</Button>
-            <Button variant="outline">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
-          </div>
-        </ComponentSection>
-
-        <ComponentSection 
-          title="Size" 
-          description="Use the size prop to control the size of the button."
-          code={`<div className="flex items-center gap-4">
-  <Button size="sm">Small</Button>
-  <Button size="md">Medium</Button>
-  <Button size="lg">Large</Button>
-</div>`}
-        >
-          <div className="flex items-center gap-4">
-            <Button size="sm">Small</Button>
-            <Button size="md">Medium</Button>
-            <Button size="lg">Large</Button>
-          </div>
-        </ComponentSection>
-
-        <ComponentSection 
-          title="With icons" 
-          description="You can insert icons directly inside the Button using leftIcon and rightIcon props."
-          code={`<div className="flex gap-4">
-  <Button variant="primary" leftIcon={<BookmarkIcon className="size-4" />}>Bookmark</Button>
-  <Button variant="secondary" rightIcon={<MagnifyingGlassIcon className="size-4" />}>Search</Button>
-</div>`}
-        >
-          <div className="flex gap-4">
-            <Button variant="primary" leftIcon={<BookmarkIcon className="size-4" />}>Bookmark</Button>
-            <Button variant="secondary" rightIcon={<MagnifyingGlassIcon className="size-4" />}>Search</Button>
-          </div>
-        </ComponentSection>
-
-        <ComponentSection 
-          title="Loading" 
-          description="Use the loading prop to display a loading indicator."
-          code={`<div className="flex gap-4">
-  <Button variant="primary" loading>Loading</Button>
-  <Button variant="secondary" loading>Loading</Button>
-</div>`}
-        >
-          <div className="flex gap-4">
-            <Button variant="primary" loading>Loading</Button>
-            <Button variant="secondary" loading>Loading</Button>
-          </div>
-        </ComponentSection>
-
-        <ComponentSection 
-          title="Disabled" 
-          description="Use the disabled prop to prevent user interaction."
-          code={`<div className="flex gap-4">
-  <Button variant="primary" disabled>Primary</Button>
-  <Button variant="secondary" disabled>Secondary</Button>
-  <Button variant="outline" disabled>Outline</Button>
-</div>`}
-        >
-          <div className="flex gap-4">
-            <Button variant="primary" disabled>Primary</Button>
-            <Button variant="secondary" disabled>Secondary</Button>
-            <Button variant="outline" disabled>Outline</Button>
-          </div>
-        </ComponentSection>
+    <div className="w-fit mx-auto space-y-10 pb-20">
+      <div className="space-y-4">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Button</h1>
+        <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+          Buttons allow users to take actions, and make choices, with a single tap.
+          Multiple variants and sizes are available to fit different contexts.
+        </p>
       </div>
-    </ComponentPageLayout>
+
+      {/* General Preview */}
+      <div className="flex flex-wrap gap-4 p-12 border border-border rounded-[8px] bg-background items-center justify-center min-h-[160px]">
+        <button className="mspbots-button mspbots-button-primary mspbots-button-md">Primary</button>
+        <button className="mspbots-button mspbots-button-secondary mspbots-button-md">Secondary</button>
+        <button className="mspbots-button mspbots-button-outline mspbots-button-md">Outline</button>
+        <button className="mspbots-button mspbots-button-ghost mspbots-button-md">Ghost</button>
+      </div>
+
+      <div className="space-y-12">
+        <ComponentExample
+          title="Variants"
+          description="Use different variants to establish hierarchy. Primary for main actions, Secondary for alternatives, Outline for less emphasis, and Ghost for subtle actions."
+          code={`<button className="mspbots-button mspbots-button-primary mspbots-button-md">
+  Primary
+</button>
+
+<button className="mspbots-button mspbots-button-secondary mspbots-button-md">
+  Secondary
+</button>
+
+<button className="mspbots-button mspbots-button-outline mspbots-button-md">
+  Outline
+</button>
+
+<button className="mspbots-button mspbots-button-ghost mspbots-button-md">
+  Ghost
+</button>`}
+        >
+           <div className="flex flex-wrap gap-4 items-center justify-center">
+             <button className="mspbots-button mspbots-button-primary mspbots-button-md">Primary</button>
+             <button className="mspbots-button mspbots-button-secondary mspbots-button-md">Secondary</button>
+             <button className="mspbots-button mspbots-button-outline mspbots-button-md">Outline</button>
+             <button className="mspbots-button mspbots-button-ghost mspbots-button-md">Ghost</button>
+           </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="Sizes"
+          description="Buttons come in three sizes: small (24px), medium (32px), and large (40px)."
+          code={`<button className="mspbots-button mspbots-button-primary mspbots-button-sm">
+  Small
+</button>
+
+<button className="mspbots-button mspbots-button-primary mspbots-button-md">
+  Medium
+</button>
+
+<button className="mspbots-button mspbots-button-primary mspbots-button-lg">
+  Large
+</button>`}
+        >
+           <div className="flex flex-wrap gap-4 items-end justify-center">
+             <button className="mspbots-button mspbots-button-primary mspbots-button-sm">Small</button>
+             <button className="mspbots-button mspbots-button-primary mspbots-button-md">Medium</button>
+             <button className="mspbots-button mspbots-button-primary mspbots-button-lg">Large</button>
+           </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="With Icons"
+          description="Icons can be added to buttons to enhance meaning. Use 15px Radix UI icons for consistency."
+          code={`import { PlusIcon, Share1Icon, TrashIcon } from '@radix-ui/react-icons';
+
+<button className="mspbots-button mspbots-button-primary mspbots-button-md">
+  <PlusIcon width={15} height={15} />
+  Add Item
+</button>
+
+<button className="mspbots-button mspbots-button-secondary mspbots-button-md">
+  <Share1Icon width={15} height={15} />
+  Share
+</button>
+
+<button className="mspbots-button mspbots-button-outline mspbots-button-md text-destructive hover:bg-destructive/10 hover:border-destructive border-destructive/50">
+  <TrashIcon width={15} height={15} />
+  Delete
+</button>`}
+        >
+           <div className="flex flex-wrap gap-4 items-center justify-center">
+             <button className="mspbots-button mspbots-button-primary mspbots-button-md">
+               <PlusIcon width={15} height={15} />
+               Add Item
+             </button>
+             <button className="mspbots-button mspbots-button-secondary mspbots-button-md">
+               <Share1Icon width={15} height={15} />
+               Share
+             </button>
+             <button className="mspbots-button mspbots-button-outline mspbots-button-md" style={{ color: 'var(--destructive)', borderColor: 'var(--destructive)' }}>
+               <TrashIcon width={15} height={15} />
+               Delete
+             </button>
+           </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="Disabled State"
+          description="Add the disabled attribute to indicate that a button is not interactive."
+          code={`<button className="mspbots-button mspbots-button-primary mspbots-button-md" disabled>
+  Disabled
+</button>
+
+<button className="mspbots-button mspbots-button-secondary mspbots-button-md" disabled>
+  Disabled
+</button>`}
+        >
+           <div className="flex flex-wrap gap-4 items-center justify-center">
+             <button className="mspbots-button mspbots-button-primary mspbots-button-md" disabled>Disabled</button>
+             <button className="mspbots-button mspbots-button-secondary mspbots-button-md" disabled>Disabled</button>
+           </div>
+        </ComponentExample>
+      </div>
+    </div>
   );
 }
