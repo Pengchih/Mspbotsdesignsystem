@@ -1,7 +1,7 @@
 import React from 'react';
 import { CopyIcon } from '@radix-ui/react-icons';
 import { toast } from 'sonner';
-import { copyToClipboard } from '../utils/clipboard';
+import { copyToClipboard } from '../../utils/clipboard';
 
 const TypographyItem = ({ 
   label, 

@@ -3,77 +3,82 @@
   --font-size: 14px;
   
   /* Typography variables */
+  --font-family-sans: 'Inter', sans-serif;
+  --font-family-mono: 'Inter', monospace;
+  
   --text-h1: 47px;
   --text-h2: 41px;
   --text-h3: 36px;
   --text-h4: 31px;
   --text-base: 14px;
   --text-sm: 12px;
-  
+
   /* MSPBots Brand Colors (Turquoise) */
-  --mspbots-primary: #17B3A3;
-  --mspbots-primary-foreground: #FCFCFC;
-  --mspbots-primary-hover: #45c2b5;
-  --mspbots-primary-active: #15a193;
-  --mspbots-primary-muted: #E8E8E8;
-  --mspbots-primary-muted-foreground: #C0C4CC;
+  --mspbots-primary: var(--seafoam-500);
+  --mspbots-primary-foreground: var(--gray-50);
+  --mspbots-primary-hover: var(--seafoam-400);
+  --mspbots-primary-active: var(--seafoam-600);
+  --mspbots-primary-muted: var(--gray-200);
+  --mspbots-primary-muted-foreground: var(--slate-400);
   
   /* Font weights */
   --font-weight-regular: 400;
+  --font-weight-medium: 500;
   --font-weight-semibold: 600;
+  --font-weight-bold: 700;
   
   /* The default background color for the application. */
-  --background: rgba(255, 255, 255, 1.00);
+  --background: var(--white-0);
   /* The default color for elements or text that appears on top of the background. */
-  --foreground: #303133;
+  --foreground: var(--slate-800);
   /* The background color for cards, modals, and other containers. */
-  --card: rgba(255, 255, 255, 1.00);
+  --card: var(--white-0);
   /* The default color for text or elements that appear on top of cards, modals and other background containers. */
-  --card-foreground: #303133;
+  --card-foreground: var(--slate-800);
   /* The background color for dropdowns and tooltips. */
-  --popover: rgba(255, 255, 255, 1.00);
+  --popover: var(--white-0);
   /* The default color for text or elements that appear on top of dropdowns and tooltips. */
-  --popover-foreground: #303133;
+  --popover-foreground: var(--slate-800);
   /* The primary color used for buttons, links, and other interactive elements. */
-  --primary: rgba(28, 28, 30, 1.00);
+  --primary: var(--seafoam-500);
   /* The default color for text or elements that appear on top of primary colored elements. */
-  --primary-foreground: rgba(255, 255, 255, 1.00);
+  --primary-foreground: var(--white-0);
   /* The secondary color used for secondary(but NOT-DESTRUCTIVE) buttons and interactive elements. */
-  --secondary: rgba(242, 242, 247, 1.00);
+  --secondary: var(--seafoam-100);
   /* The default color for text or elements that appear on top of secondary colored elements. */
-  --secondary-foreground: #606266;
+  --secondary-foreground: var(--seafoam-700);
   /* The muted color used for less prominent elements, such as disabled buttons or disabled text. */
-  --muted: rgba(241, 241, 241, 1.00);
+  --muted: var(--slate-100);
   /* The default color for text or elements that appear on top of muted colored elements. */
-  --muted-foreground: rgba(144, 147, 152, 1.00);
+  --muted-foreground: var(--slate-500);
   /* The accent color used for highlights, links, and other interactive elements. */
-  --accent: rgba(28, 28, 30, 1.00);
+  --accent: var(--seafoam-500);
   /* The default color for text or elements that appear on top of accent colored elements. */
-  --accent-foreground: rgba(255, 255, 255, 1.00);
+  --accent-foreground: var(--white-0);
   /* The color used for background in destructive actions, such as delete buttons or error messages. */
-  --destructive: rgba(245, 108, 108, 1.00);
+  --destructive: var(--red-500);
   /* The default color for text or elements that appear on top of destructive colored elements. */
-  --destructive-foreground: rgba(255, 255, 255, 1.00);
+  --destructive-foreground: var(--white-0);
   /* The default border color for elements such as inputs, buttons, and other containers. */
-  --border: #DCDFE6;
+  --border: var(--slate-200);
   /* The default background color for input fields once the text has been filled. Should be either transparent or match the input-background. */
-  --input: rgba(255, 255, 255, 1.00);
+  --input: var(--white-0);
   /* The default background color for input fields, text areas, and other input elements. */
-  --input-background: rgba(255, 255, 255, 1.00);
+  --input-background: var(--white-0);
   /* The default color for focus rings, outlines, and other focus indicators. */
-  --ring: rgba(28, 28, 30, 1.00);
+  --ring: var(--seafoam-500);
   /* Shadow for small elevations, such as cards or modals. */
   --elevation-sm: 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
   /* The color for chart elements, such as a bar or line in a chart. */
-  --chart-1: rgba(64, 158, 255, 1.00);
+  --chart-1: var(--blue-500);
   /* The color for another chart element, such as a bar or line in a chart. */
-  --chart-2: #67C23A;
+  --chart-2: var(--celery-500);
   /* The color for another chart element, such as a bar or line in a chart. */
-  --chart-3: rgba(230, 162, 60, 1.00);
+  --chart-3: var(--orange-500);
   /* The color for another chart element, such as a bar or line in a chart. */
-  --chart-4: rgba(245, 108, 108, 1.00);
+  --chart-4: var(--red-500);
   /* The color for another chart element, such as a bar or line in a chart. */
-  --chart-5: #909399;
+  --chart-5: var(--slate-600);
   /* The default border radius for elements such as buttons, tooltip, and other containers. */
   --radius: 4px;
   /* The border radius specifically for buttons */
@@ -83,21 +88,21 @@
   --radius-lg: 12px;
   --radius-xl: 16px;
   /* The background color for sidebars, navigation menus, and other persistent elements. */
-  --sidebar: rgba(255, 255, 255, 1.00);
+  --sidebar: var(--white-0);
   /* The default color for text or elements that appear on top of sidebars, navigation menus, and other persistent elements. */
-  --sidebar-foreground: #303133;
+  --sidebar-foreground: var(--slate-800);
   /* The primary color used for buttons, links, and other interactive elements in sidebars and navigation menus. */
-  --sidebar-primary: rgba(28, 28, 30, 1.00);
+  --sidebar-primary: var(--seafoam-500);
   /* The default color for text or elements that appear on top of primary colored elements in sidebars and navigation menus. */
-  --sidebar-primary-foreground: rgba(255, 255, 255, 1.00);
+  --sidebar-primary-foreground: var(--white-0);
   /* The accent color used for highlights, links, and other interactive elements in sidebars and navigation menus. */
-  --sidebar-accent: rgba(28, 28, 30, 1.00);
+  --sidebar-accent: var(--seafoam-100);
   /* The default color for text or elements that appear on top of accent colored elements in sidebars and navigation menus. */
-  --sidebar-accent-foreground: rgba(255, 255, 255, 1.00);
+  --sidebar-accent-foreground: var(--seafoam-700);
   /* The default border color for elements in sidebars and navigation menus. */
-  --sidebar-border: #DCDFE6;
+  --sidebar-border: var(--slate-200);
   /* The default color for focus rings, outlines, and other focus indicators in sidebars and navigation menus. */
-  --sidebar-ring: #17B3A3;
+  --sidebar-ring: var(--seafoam-500);
 }
 
 @theme inline {
@@ -140,6 +145,8 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
 }
 
 @layer base {
@@ -149,63 +156,68 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-family-sans);
     font-size: var(--font-size);
     font-weight: var(--font-weight-regular);
+  }
+  
+  /* Apply mono font to code elements */
+  code, pre, kbd, samp {
+    font-family: var(--font-family-mono);
   }
 }
 
 h1 {
-  font-family: 'Raleway', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--text-h1);
   font-weight: var(--font-weight-semibold);
   line-height: 1.2;
 }
 
 h2 {
-  font-family: 'Raleway', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--text-h2);
   font-weight: var(--font-weight-semibold);
   line-height: 1.2;
 }
 
 h3 {
-  font-family: 'Raleway', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--text-h3);
   font-weight: var(--font-weight-semibold);
   line-height: 1.2;
 }
 
 h4 {
-  font-family: 'Raleway', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--text-h4);
   font-weight: var(--font-weight-semibold);
   line-height: 1.2;
 }
 
 p {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--text-base);
   font-weight: var(--font-weight-regular);
   line-height: 1.5;
 }
 
 span {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--text-base);
   font-weight: var(--font-weight-regular);
   line-height: 1.5;
 }
 
 label {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-regular);
   line-height: 1.5;
 }
 
 button {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--text-base);
   font-weight: var(--font-weight-regular);
   line-height: 1.5;
@@ -213,7 +225,7 @@ button {
 }
 
 input {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--text-base);
   font-weight: var(--font-weight-regular);
   line-height: 1.5;

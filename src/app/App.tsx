@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Sidebar } from './components/Sidebar';
-import { Colors } from './components/Colors';
-import { Typography } from './components/Typography';
-import { Icons } from './components/Icons';
-import { ButtonShowcase } from './components/ButtonShowcase';
-import { InputShowcase } from './components/InputShowcase';
-import { CheckboxShowcase } from './components/CheckboxShowcase';
-import { RadioShowcase } from './components/RadioShowcase';
-import { SwitchShowcase } from './components/SwitchShowcase';
-import { BadgeShowcase } from './components/BadgeShowcase';
-import { TextareaShowcase } from './components/TextareaShowcase';
-import { SelectShowcase } from './components/SelectShowcase';
-import { AvatarShowcase } from './components/AvatarShowcase';
-import { CardShowcase } from './components/CardShowcase';
+import { Colors } from './pages/foundation/Colors';
+import { Typography } from './pages/foundation/Typography';
+import { Icons } from './pages/foundation/Icons';
+import { ButtonShowcase } from './pages/components/ButtonShowcase';
+import { InputShowcase } from './pages/components/InputShowcase';
+import { CheckboxShowcase } from './pages/components/CheckboxShowcase';
+import { RadioShowcase } from './pages/components/RadioShowcase';
+import { SwitchShowcase } from './pages/components/SwitchShowcase';
+import { BadgeShowcase } from './pages/components/BadgeShowcase';
+import { TextareaShowcase } from './pages/components/TextareaShowcase';
+import { SelectShowcase } from './pages/components/SelectShowcase';
+import { AvatarShowcase } from './pages/components/AvatarShowcase';
+import { CardShowcase } from './pages/components/CardShowcase';
 import { Foundation } from './pages/Foundation';
 import { Components } from './pages/Components';
 import { motion, AnimatePresence } from 'motion/react';
@@ -73,7 +73,7 @@ export default function App() {
             className={`px-5 py-2 rounded-[var(--radius-lg)] text-sm font-semibold transition-all duration-200 ${
               activeCategory === 'foundation'
                 ? 'bg-muted text-foreground'
-                : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
             }`}
           >
             Foundation
@@ -83,7 +83,7 @@ export default function App() {
             className={`px-5 py-2 rounded-[var(--radius-lg)] text-sm font-semibold transition-all duration-200 ${
               activeCategory === 'components'
                 ? 'bg-muted text-foreground'
-                : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
             }`}
           >
             Components

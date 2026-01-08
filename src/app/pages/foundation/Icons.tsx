@@ -32,7 +32,7 @@ import {
   CrossCircledIcon
 } from '@radix-ui/react-icons';
 import { toast } from 'sonner';
-import { copyToClipboard } from '../utils/clipboard';
+import { copyToClipboard } from '../../utils/clipboard';
 
 const IconItem = ({ name, icon: Icon }: { name: string; icon: React.ElementType }) => {
   const handleCopy = async () => {

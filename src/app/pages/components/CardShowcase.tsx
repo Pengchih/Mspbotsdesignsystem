@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentExample } from './ComponentExample';
+import { ComponentExample } from '../../components/ComponentExample';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 
 export function CardShowcase() {

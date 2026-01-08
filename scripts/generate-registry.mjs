@@ -190,6 +190,12 @@ const colors = {
     750: "#48494D",
     800: "#303133",
     900: "#1B1C1D",
+  },
+  white: {
+    0: "#FFFFFF"
+  },
+  black: {
+    0: "#000000"
   }
 };
 
@@ -197,30 +203,58 @@ let output = `// This file is auto-generated. Do not edit directly.
 // Source: MSPBots Design System
 
 export interface ColorShade {
+  scale: number;
   hex: string;
   rgb: string;
   hsl: string;
   oklch: string;
 }
 
-export type ColorPalette = Record<string, Record<string | number, ColorShade>>;
+export type ColorPalette = Record<string, ColorShade[]>;
 
 export const registryColors: ColorPalette = {\n`;
 
+let cssVars = ``;
+
 for (const [colorName, shades] of Object.entries(colors)) {
-  output += `  ${colorName}: {\n`;
+  output += `  ${colorName}: [\n`;
   for (const [shade, hex] of Object.entries(shades)) {
-    output += `    ${shade}: {\n`;
+    const rgb = hexToRgbString(hex);
+    const hsl = hexToHslString(hex);
+    const oklch = hexToOklchString(hex);
+    
+    // Add to TS output
+    output += `    {\n`;
+    output += `      scale: ${shade},\n`;
     output += `      hex: "${hex}",\n`;
-    output += `      rgb: "${hexToRgbString(hex)}",\n`;
-    output += `      hsl: "${hexToHslString(hex)}",\n`;
-    output += `      oklch: "${hexToOklchString(hex)}",\n`;
+    output += `      rgb: "${rgb}",\n`;
+    output += `      hsl: "${hsl}",\n`;
+    output += `      oklch: "${oklch}",\n`;
     output += `    },\n`;
+
+    // Add to CSS output
+    cssVars += `  --${colorName}-${shade}: ${hex};\n`;
   }
-  output += `  },\n`;
+  output += `  ],\n`;
 }
 
 output += `};\n`;
 
+// Generate TS file
 fs.writeFileSync('src/styles/registry-colors.ts', output);
-console.log('Registry generated at src/styles/registry-colors.ts');
+
+// Update index.css with generated variables
+const indexCssPath = 'src/styles/index.css';
+const indexCssContent = `@import "./fonts.css";
+@import "tailwindcss";
+@import "./theme.css";
+@import "./mspbotsui.css";
+
+:root {
+  /* Generated Color Primitives */
+${cssVars}
+}
+`;
+
+fs.writeFileSync(indexCssPath, indexCssContent);
+console.log('Registry generated at src/styles/registry-colors.ts and styles updated in src/styles/index.css');

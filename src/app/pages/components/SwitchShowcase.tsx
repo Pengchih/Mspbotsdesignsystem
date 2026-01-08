@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentExample } from './ComponentExample';
+import { ComponentExample } from '../../components/ComponentExample';
 import * as Switch from '@radix-ui/react-switch';
 
 export function SwitchShowcase() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentExample } from './ComponentExample';
+import { ComponentExample } from '../../components/ComponentExample';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from '@radix-ui/react-icons';
 

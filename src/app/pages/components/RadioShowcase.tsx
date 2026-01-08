@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentExample } from './ComponentExample';
+import { ComponentExample } from '../../components/ComponentExample';
 import * as RadioGroup from '@radix-ui/react-radio-group';
 
 export function RadioShowcase() {

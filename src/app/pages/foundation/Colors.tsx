@@ -1,5 +1,5 @@
 import React from 'react';
-import { registryColors } from '../../styles/registry-colors';
+import { registryColors } from '../../../styles/registry-colors';
 
 const SHADES = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 const GRAYSCALE_SHADES = [50, 100, 200, 300, 400, 500, 550, 600, 650, 700, 750, 800, 900];

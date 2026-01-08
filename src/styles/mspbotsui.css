@@ -12,10 +12,10 @@
   --mspbots-button-primary-disabled-fg: var(--mspbots-primary-muted-foreground);
 
   /* Secondary Button (Light Turquoise) */
-  --mspbots-button-secondary-bg: #e8f7f6;
+  --mspbots-button-secondary-bg: var(--seafoam-100);
   --mspbots-button-secondary-fg: var(--mspbots-primary);
-  --mspbots-button-secondary-border: #8bd9d1;
-  --mspbots-button-secondary-hover-bg: #d7f2f0;
+  --mspbots-button-secondary-border: var(--seafoam-300);
+  --mspbots-button-secondary-hover-bg: var(--seafoam-200);
 
   /* Outline Button */
   --mspbots-button-outline-bg: var(--background);
@@ -43,8 +43,8 @@
   /* Input states */
   --mspbots-input-error-border: var(--destructive);
   --mspbots-input-error-fg: var(--destructive);
-  --mspbots-input-success-border: rgba(103, 194, 58, 1.00);
-  --mspbots-input-success-fg: rgba(103, 194, 58, 1.00);
+  --mspbots-input-success-border: var(--celery-500);
+  --mspbots-input-success-fg: var(--celery-500);
 }
 
 /* Button Base Styles */
@@ -402,7 +402,7 @@
   outline: none;
   min-height: 80px;
   resize: vertical;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--text-base);
 }
 
@@ -438,7 +438,7 @@
   outline: none;
   appearance: none;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--text-base);
   color: var(--foreground);
 }

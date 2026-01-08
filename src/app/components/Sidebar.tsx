@@ -141,8 +141,8 @@ export function Sidebar({ activeCategory, activeTab, setActiveTab }: SidebarProp
                 onClick={() => setActiveTab(item.id)}
                 className={`w-full flex items-center gap-2.5 px-3 py-1.5 rounded-md text-sm transition-all duration-200 group ${
                   isActive 
-                    ? 'bg-secondary text-foreground font-medium' 
-                    : 'text-muted-foreground hover:bg-muted/40 hover:text-foreground'
+                    ? 'bg-secondary text-primary font-medium' 
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 }`}
               >
                 <Icon className={`transition-colors size-[15px] ${isActive ? 'text-primary' : 'text-muted-foreground/40 group-hover:text-muted-foreground/70'}`} />
