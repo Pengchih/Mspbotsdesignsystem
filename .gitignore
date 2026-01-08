@@ -1,3 +1,36 @@
+# Dependencies
 node_modules
+
+# IDE & Editor
 .vscode
+.idea
+*.swp
+*.swo
+
+# Project specific
 guidelines
+
+# Build output
+dist
+build
+*.local
+
+# Environment variables (重要：如果将来添加 .env 文件)
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Debug
+*.pem
+*.key
