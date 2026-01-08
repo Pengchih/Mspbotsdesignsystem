@@ -13,7 +13,7 @@ We are building a Design System website. The source of truth is the Figma Librar
 
 ## 1. Tokenization & Styling
 - **NO Hardcoded Values:** Avoid raw hex codes (e.g., `#000000`) or raw pixel values if possible. Prefer using CSS variables or system tokens.
-- **Color References:** Do NOT define raw hex values in `theme.css`. All colors must reference variables from `registry-colors.ts` (which are generated into `src/styles/primitives.css` as CSS variables).
+- **Color References:** Do NOT define raw hex values in `theme.css`. All colors must reference variables from `registry-colors.ts` (which are generated into `src/styles/index.css` as CSS variables).
 - **Variable Mapping:** Map Figma Variables/Styles strictly to:
   - Colors: Semantic names (e.g., `--color-primary`, `primary-text`)
   - Typography: Token names (e.g., `heading-xl`, `body-regular`). Use `Inter` font family only.
