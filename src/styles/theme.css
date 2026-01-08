@@ -13,6 +13,12 @@
   --text-base: 14px;
   --text-sm: 12px;
 
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
   /* MSPBots Brand Colors (Turquoise) */
   --mspbots-primary: var(--seafoam-500);
   --mspbots-primary-foreground: var(--gray-50);
@@ -21,12 +27,7 @@
   --mspbots-primary-muted: var(--gray-200);
   --mspbots-primary-muted-foreground: var(--slate-400);
   
-  /* Font weights */
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  
+
   /* The default background color for the application. */
   --background: var(--white-0);
   /* The default color for elements or text that appears on top of the background. */

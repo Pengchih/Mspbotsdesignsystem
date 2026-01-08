@@ -1,0 +1,16 @@
+{
+  "servers": {
+    "my-mcp-server-3f8df760": {
+      "url": "http://127.0.0.1:3845/mcp",
+      "type": "http"
+    },
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "figma-developer-mcp", "--stdio"],
+      "env": {
+        "FIGMA_API_KEY": "figd_YYJMIINWZpPIpxnpG3PZbrZOtWb2itFQUdaJKu1s"
+      }
+    }
+  },
+  "inputs": []
+}

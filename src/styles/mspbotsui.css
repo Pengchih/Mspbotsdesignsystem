@@ -3,27 +3,52 @@
 /* Uses design system variables from theme.css for consistency */
 
 :root {
-  /* Primary Button (Turquoise) */
-  --mspbots-button-primary-bg: var(--mspbots-primary);
-  --mspbots-button-primary-fg: var(--mspbots-primary-foreground);
-  --mspbots-button-primary-hover: var(--mspbots-primary-hover);
-  --mspbots-button-primary-active: var(--mspbots-primary-active);
+  /* ========================================
+   * BUTTON COLOR STYLES (Solid variants)
+   * ======================================== */
+  
+  /* Primary Button (Seafoam/Turquoise) */
+  --mspbots-button-primary-bg: var(--seafoam-500);
+  --mspbots-button-primary-fg: var(--white-0);
+  --mspbots-button-primary-hover: var(--seafoam-400);
+  --mspbots-button-primary-active: var(--seafoam-600);
+  
+  /* Info Button (Slate/Gray) */
+  --mspbots-button-info-bg: var(--slate-600);
+  --mspbots-button-info-fg: var(--white-0);
+  --mspbots-button-info-hover: var(--slate-550);
+  --mspbots-button-info-active: var(--slate-650);
+  
+  /* Success Button (Celery/Green) */
+  --mspbots-button-success-bg: var(--celery-500);
+  --mspbots-button-success-fg: var(--white-0);
+  --mspbots-button-success-hover: var(--celery-400);
+  --mspbots-button-success-active: var(--celery-600);
+  
+  /* Danger Button (Red) */
+  --mspbots-button-danger-bg: var(--red-500);
+  --mspbots-button-danger-fg: var(--white-0);
+  --mspbots-button-danger-hover: var(--red-400);
+  --mspbots-button-danger-active: var(--red-600);
+  
+  /* Disabled Button */
+  --mspbots-button-disabled-bg: var(--slate-200);
+  --mspbots-button-disabled-fg: var(--slate-400);
+  --mspbots-button-disabled-border: var(--slate-300);
+
+  /* ========================================
+   * LEGACY BUTTON STYLES (for backward compatibility)
+   * ======================================== */
   --mspbots-button-primary-disabled-bg: var(--mspbots-primary-muted);
   --mspbots-button-primary-disabled-fg: var(--mspbots-primary-muted-foreground);
-
-  /* Secondary Button (Light Turquoise) */
   --mspbots-button-secondary-bg: var(--seafoam-100);
   --mspbots-button-secondary-fg: var(--mspbots-primary);
   --mspbots-button-secondary-border: var(--seafoam-300);
   --mspbots-button-secondary-hover-bg: var(--seafoam-200);
-
-  /* Outline Button */
   --mspbots-button-outline-bg: var(--background);
   --mspbots-button-outline-fg: var(--secondary-foreground);
   --mspbots-button-outline-border: var(--border);
   --mspbots-button-outline-hover-bg: var(--secondary);
-
-  /* Ghost Button */
   --mspbots-button-ghost-bg: transparent;
   --mspbots-button-ghost-fg: var(--secondary-foreground);
   --mspbots-button-ghost-hover: var(--secondary);
@@ -58,31 +83,427 @@
   cursor: pointer;
   border: none;
   outline: none;
+  font-weight: 500;
+  font-family: var(--font-family-sans);
+  white-space: nowrap;
+  user-select: none;
 }
 
-.mspbots-button:active {
+.mspbots-button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.mspbots-button:active:not(:disabled) {
   transform: scale(0.98);
 }
 
-.mspbots-button:disabled {
-  opacity: 0.5;
-  pointer-events: none;
+/* Disabled State */
+.mspbots-button:disabled,
+.mspbots-button.mspbots-button-disabled {
   cursor: not-allowed;
+  pointer-events: none;
 }
 
-/* Button Variants */
-.mspbots-button-primary {
+/* Button Icon Styles */
+.mspbots-button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mspbots-button-content {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Button Spinner */
+.mspbots-button-spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mspbots-button-spinner-icon {
+  animation: mspbots-spin 1s linear infinite;
+}
+
+@keyframes mspbots-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ========================================
+ * COLOR STYLE: PRIMARY (Seafoam/Turquoise)
+ * ======================================== */
+
+/* Primary + Solid */
+.mspbots-button-primary.mspbots-button-solid {
   background-color: var(--mspbots-button-primary-bg);
   color: var(--mspbots-button-primary-fg);
+  border: 1px solid var(--mspbots-button-primary-bg);
 }
 
-.mspbots-button-primary:hover:not(:disabled) {
+.mspbots-button-primary.mspbots-button-solid:hover:not(:disabled) {
   background-color: var(--mspbots-button-primary-hover);
+  border-color: var(--mspbots-button-primary-hover);
 }
 
-.mspbots-button-primary:active:not(:disabled) {
+.mspbots-button-primary.mspbots-button-solid:active:not(:disabled) {
   background-color: var(--mspbots-button-primary-active);
+  border-color: var(--mspbots-button-primary-active);
 }
+
+.mspbots-button-primary.mspbots-button-solid:disabled {
+  background-color: var(--mspbots-button-disabled-bg);
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-bg);
+}
+
+/* Primary + Plain */
+.mspbots-button-primary.mspbots-button-plain {
+  background-color: var(--seafoam-100);
+  color: var(--seafoam-500);
+  border: 1px solid var(--seafoam-200);
+}
+
+.mspbots-button-primary.mspbots-button-plain:hover:not(:disabled) {
+  background-color: var(--seafoam-200);
+  border-color: var(--seafoam-300);
+}
+
+.mspbots-button-primary.mspbots-button-plain:active:not(:disabled) {
+  background-color: var(--seafoam-300);
+  border-color: var(--seafoam-400);
+}
+
+.mspbots-button-primary.mspbots-button-plain:disabled {
+  background-color: var(--mspbots-button-disabled-bg);
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-border);
+}
+
+/* Primary + Outline */
+.mspbots-button-primary.mspbots-button-outline {
+  background-color: transparent;
+  color: var(--seafoam-500);
+  border: 1px solid var(--seafoam-500);
+}
+
+.mspbots-button-primary.mspbots-button-outline:hover:not(:disabled) {
+  background-color: var(--seafoam-100);
+  border-color: var(--seafoam-400);
+}
+
+.mspbots-button-primary.mspbots-button-outline:active:not(:disabled) {
+  background-color: var(--seafoam-200);
+  border-color: var(--seafoam-600);
+}
+
+.mspbots-button-primary.mspbots-button-outline:disabled {
+  background-color: transparent;
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-border);
+}
+
+/* Primary + Ghost */
+.mspbots-button-primary.mspbots-button-ghost {
+  background-color: transparent;
+  color: var(--seafoam-500);
+  border: none;
+}
+
+.mspbots-button-primary.mspbots-button-ghost:hover:not(:disabled) {
+  background-color: var(--seafoam-100);
+}
+
+.mspbots-button-primary.mspbots-button-ghost:active:not(:disabled) {
+  background-color: var(--seafoam-200);
+}
+
+.mspbots-button-primary.mspbots-button-ghost:disabled {
+  color: var(--mspbots-button-disabled-fg);
+}
+
+/* ========================================
+ * COLOR STYLE: INFO (Slate/Gray)
+ * ======================================== */
+
+/* Info + Solid */
+.mspbots-button-info.mspbots-button-solid {
+  background-color: var(--mspbots-button-info-bg);
+  color: var(--mspbots-button-info-fg);
+  border: 1px solid var(--mspbots-button-info-bg);
+}
+
+.mspbots-button-info.mspbots-button-solid:hover:not(:disabled) {
+  background-color: var(--mspbots-button-info-hover);
+  border-color: var(--mspbots-button-info-hover);
+}
+
+.mspbots-button-info.mspbots-button-solid:active:not(:disabled) {
+  background-color: var(--mspbots-button-info-active);
+  border-color: var(--mspbots-button-info-active);
+}
+
+.mspbots-button-info.mspbots-button-solid:disabled {
+  background-color: var(--mspbots-button-disabled-bg);
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-bg);
+}
+
+/* Info + Plain */
+.mspbots-button-info.mspbots-button-plain {
+  background-color: var(--slate-100);
+  color: var(--slate-600);
+  border: 1px solid var(--slate-200);
+}
+
+.mspbots-button-info.mspbots-button-plain:hover:not(:disabled) {
+  background-color: var(--slate-200);
+  border-color: var(--slate-300);
+}
+
+.mspbots-button-info.mspbots-button-plain:active:not(:disabled) {
+  background-color: var(--slate-300);
+  border-color: var(--slate-400);
+}
+
+.mspbots-button-info.mspbots-button-plain:disabled {
+  background-color: var(--mspbots-button-disabled-bg);
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-border);
+}
+
+/* Info + Outline */
+.mspbots-button-info.mspbots-button-outline {
+  background-color: transparent;
+  color: var(--slate-600);
+  border: 1px solid var(--slate-600);
+}
+
+.mspbots-button-info.mspbots-button-outline:hover:not(:disabled) {
+  background-color: var(--slate-100);
+  border-color: var(--slate-550);
+}
+
+.mspbots-button-info.mspbots-button-outline:active:not(:disabled) {
+  background-color: var(--slate-200);
+  border-color: var(--slate-650);
+}
+
+.mspbots-button-info.mspbots-button-outline:disabled {
+  background-color: transparent;
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-border);
+}
+
+/* Info + Ghost */
+.mspbots-button-info.mspbots-button-ghost {
+  background-color: transparent;
+  color: var(--slate-600);
+  border: none;
+}
+
+.mspbots-button-info.mspbots-button-ghost:hover:not(:disabled) {
+  background-color: var(--slate-100);
+}
+
+.mspbots-button-info.mspbots-button-ghost:active:not(:disabled) {
+  background-color: var(--slate-200);
+}
+
+.mspbots-button-info.mspbots-button-ghost:disabled {
+  color: var(--mspbots-button-disabled-fg);
+}
+
+/* ========================================
+ * COLOR STYLE: SUCCESS (Celery/Green)
+ * ======================================== */
+
+/* Success + Solid */
+.mspbots-button-success.mspbots-button-solid {
+  background-color: var(--mspbots-button-success-bg);
+  color: var(--mspbots-button-success-fg);
+  border: 1px solid var(--mspbots-button-success-bg);
+}
+
+.mspbots-button-success.mspbots-button-solid:hover:not(:disabled) {
+  background-color: var(--mspbots-button-success-hover);
+  border-color: var(--mspbots-button-success-hover);
+}
+
+.mspbots-button-success.mspbots-button-solid:active:not(:disabled) {
+  background-color: var(--mspbots-button-success-active);
+  border-color: var(--mspbots-button-success-active);
+}
+
+.mspbots-button-success.mspbots-button-solid:disabled {
+  background-color: var(--mspbots-button-disabled-bg);
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-bg);
+}
+
+/* Success + Plain */
+.mspbots-button-success.mspbots-button-plain {
+  background-color: var(--celery-100);
+  color: var(--celery-500);
+  border: 1px solid var(--celery-200);
+}
+
+.mspbots-button-success.mspbots-button-plain:hover:not(:disabled) {
+  background-color: var(--celery-200);
+  border-color: var(--celery-300);
+}
+
+.mspbots-button-success.mspbots-button-plain:active:not(:disabled) {
+  background-color: var(--celery-300);
+  border-color: var(--celery-400);
+}
+
+.mspbots-button-success.mspbots-button-plain:disabled {
+  background-color: var(--mspbots-button-disabled-bg);
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-border);
+}
+
+/* Success + Outline */
+.mspbots-button-success.mspbots-button-outline {
+  background-color: transparent;
+  color: var(--celery-500);
+  border: 1px solid var(--celery-500);
+}
+
+.mspbots-button-success.mspbots-button-outline:hover:not(:disabled) {
+  background-color: var(--celery-100);
+  border-color: var(--celery-400);
+}
+
+.mspbots-button-success.mspbots-button-outline:active:not(:disabled) {
+  background-color: var(--celery-200);
+  border-color: var(--celery-600);
+}
+
+.mspbots-button-success.mspbots-button-outline:disabled {
+  background-color: transparent;
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-border);
+}
+
+/* Success + Ghost */
+.mspbots-button-success.mspbots-button-ghost {
+  background-color: transparent;
+  color: var(--celery-500);
+  border: none;
+}
+
+.mspbots-button-success.mspbots-button-ghost:hover:not(:disabled) {
+  background-color: var(--celery-100);
+}
+
+.mspbots-button-success.mspbots-button-ghost:active:not(:disabled) {
+  background-color: var(--celery-200);
+}
+
+.mspbots-button-success.mspbots-button-ghost:disabled {
+  color: var(--mspbots-button-disabled-fg);
+}
+
+/* ========================================
+ * COLOR STYLE: DANGER (Red)
+ * ======================================== */
+
+/* Danger + Solid */
+.mspbots-button-danger.mspbots-button-solid {
+  background-color: var(--mspbots-button-danger-bg);
+  color: var(--mspbots-button-danger-fg);
+  border: 1px solid var(--mspbots-button-danger-bg);
+}
+
+.mspbots-button-danger.mspbots-button-solid:hover:not(:disabled) {
+  background-color: var(--mspbots-button-danger-hover);
+  border-color: var(--mspbots-button-danger-hover);
+}
+
+.mspbots-button-danger.mspbots-button-solid:active:not(:disabled) {
+  background-color: var(--mspbots-button-danger-active);
+  border-color: var(--mspbots-button-danger-active);
+}
+
+.mspbots-button-danger.mspbots-button-solid:disabled {
+  background-color: var(--mspbots-button-disabled-bg);
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-bg);
+}
+
+/* Danger + Plain */
+.mspbots-button-danger.mspbots-button-plain {
+  background-color: var(--red-100);
+  color: var(--red-500);
+  border: 1px solid var(--red-200);
+}
+
+.mspbots-button-danger.mspbots-button-plain:hover:not(:disabled) {
+  background-color: var(--red-200);
+  border-color: var(--red-300);
+}
+
+.mspbots-button-danger.mspbots-button-plain:active:not(:disabled) {
+  background-color: var(--red-300);
+  border-color: var(--red-400);
+}
+
+.mspbots-button-danger.mspbots-button-plain:disabled {
+  background-color: var(--mspbots-button-disabled-bg);
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-border);
+}
+
+/* Danger + Outline */
+.mspbots-button-danger.mspbots-button-outline {
+  background-color: transparent;
+  color: var(--red-500);
+  border: 1px solid var(--red-500);
+}
+
+.mspbots-button-danger.mspbots-button-outline:hover:not(:disabled) {
+  background-color: var(--red-100);
+  border-color: var(--red-400);
+}
+
+.mspbots-button-danger.mspbots-button-outline:active:not(:disabled) {
+  background-color: var(--red-200);
+  border-color: var(--red-600);
+}
+
+.mspbots-button-danger.mspbots-button-outline:disabled {
+  background-color: transparent;
+  color: var(--mspbots-button-disabled-fg);
+  border-color: var(--mspbots-button-disabled-border);
+}
+
+/* Danger + Ghost */
+.mspbots-button-danger.mspbots-button-ghost {
+  background-color: transparent;
+  color: var(--red-500);
+  border: none;
+}
+
+.mspbots-button-danger.mspbots-button-ghost:hover:not(:disabled) {
+  background-color: var(--red-100);
+}
+
+.mspbots-button-danger.mspbots-button-ghost:active:not(:disabled) {
+  background-color: var(--red-200);
+}
+
+.mspbots-button-danger.mspbots-button-ghost:disabled {
+  color: var(--mspbots-button-disabled-fg);
+}
+
+/* ========================================
+ * LEGACY BUTTON VARIANTS (backward compatibility)
+ * ======================================== */
 
 .mspbots-button-secondary {
   background-color: var(--mspbots-button-secondary-bg);
@@ -92,25 +513,6 @@
 
 .mspbots-button-secondary:hover:not(:disabled) {
   background-color: var(--mspbots-button-secondary-hover-bg);
-}
-
-.mspbots-button-outline {
-  background-color: var(--mspbots-button-outline-bg);
-  color: var(--mspbots-button-outline-fg);
-  border: 1px solid var(--mspbots-button-outline-border);
-}
-
-.mspbots-button-outline:hover:not(:disabled) {
-  background-color: var(--mspbots-button-outline-hover-bg);
-}
-
-.mspbots-button-ghost {
-  background-color: var(--mspbots-button-ghost-bg);
-  color: var(--mspbots-button-ghost-fg);
-}
-
-.mspbots-button-ghost:hover:not(:disabled) {
-  background-color: var(--mspbots-button-ghost-hover);
 }
 
 /* Button Sizes */
@@ -346,7 +748,7 @@
   display: block;
   width: var(--mspbots-switch-thumb-size);
   height: var(--mspbots-switch-thumb-size);
-  background-color: white;
+  background-color: var(--white-0);
   border-radius: 9999px;
   transition: transform 0.2s;
   transform: translateX(2px);

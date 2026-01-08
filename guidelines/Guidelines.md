@@ -25,6 +25,38 @@ We are building a Design System website. The source of truth is the Figma Librar
   - Mirror Figma "Properties" (Variants, Booleans, Text) to code parameters/props.
   - Separate structure (HTML) from styling (CSS) logic where appropriate.
 
+### Project Structure Guidelines
+Maintain a clear separation between reusable components, pages, and showcases:
+
+```
+src/app/
+  ├── components/              # Reusable UI components (Design System Library)
+  │   ├── Button.tsx          # e.g., <Button variant="primary">Click</Button>
+  │   ├── Input.tsx
+  │   ├── Checkbox.tsx
+  │   └── ...                 # Other atomic/molecular components
+  │
+  ├── pages/
+  │   ├── Foundation/         # Foundation-related pages
+  │   │   ├── Colors.tsx      # Color system showcase
+  │   │   ├── Typography.tsx  # Typography system showcase
+  │   │   └── Icons.tsx       # Icon system showcase
+  │   │
+  │   └── Components/         # Component showcase pages
+  │       ├── ButtonShowcase.tsx    # Imports and demonstrates <Button />
+  │       ├── InputShowcase.tsx     # Imports and demonstrates <Input />
+  │       └── ...                   # Other component showcases
+  │
+  └── utils/                  # Utility functions and helpers
+```
+
+**Rules:**
+- **`components/`**: Contains ONLY reusable React components that are part of the design system. These should be importable and usable across the application.
+- **`pages/`**: Contains page-level components organized by sections (Foundation, Components). These are NOT reusable components but rather documentation/showcase pages.
+- **Showcase pages MUST import from `components/`**: Never write component code directly in showcase pages. Always import from `src/app/components/`.
+- **Component naming**: Component files use PascalCase (e.g., `Button.tsx`). Showcase pages append "Showcase" (e.g., `ButtonShowcase.tsx`).
+- **One component per file**: Each component should have its own file. Avoid bundling multiple components in a single file unless they are tightly coupled sub-components.
+
 ## 3. Layout Logic (Auto Layout)
 - **Flexbox/Grid:** Translate Figma Auto Layout settings directly into Flexbox or Grid properties.
 - **Alignment:** Strictly respect "Fill Container," "Hug Contents," and "Space Between" logic in the code.
