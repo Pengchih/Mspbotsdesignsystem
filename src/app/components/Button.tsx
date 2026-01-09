@@ -15,6 +15,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   leftIcon?: React.ReactNode;
   /** Icon to display on the right side of the button text */
   rightIcon?: React.ReactNode;
+  /** Whether the button is an icon-only button */
+  isIconOnly?: boolean;
   /** Whether the button is in a loading state */
   loading?: boolean;
   /** The content of the button */
@@ -43,6 +45,7 @@ export function Button({
   size = 'md',
   leftIcon,
   rightIcon,
+  isIconOnly = false,
   loading = false,
   children,
   className = '',
@@ -53,13 +56,15 @@ export function Button({
   const colorStyleClass = `mspbots-button-${colorStyle}`;
   const variantClass = `mspbots-button-${variant}`;
   const sizeClass = `mspbots-button-${size}`;
-  const disabledClass = disabled ? 'mspbots-button-disabled' : '';
+  const iconOnlyClass = isIconOnly ? 'mspbots-button-icon-only' : '';
+  const disabledClass = disabled || loading ? 'mspbots-button-disabled' : '';
   
   const classes = [
     baseClass,
     colorStyleClass,
     variantClass,
     sizeClass,
+    iconOnlyClass,
     disabledClass,
     className
   ].filter(Boolean).join(' ');

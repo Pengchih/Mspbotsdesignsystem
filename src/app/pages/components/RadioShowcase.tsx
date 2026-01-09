@@ -6,7 +6,7 @@ export function RadioShowcase() {
   return (
     <div className="w-full max-w-5xl mx-auto space-y-10 pb-20">
       <div className="space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Radio Group</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Radio</h1>
         <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
           A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
         </p>
@@ -24,7 +24,7 @@ export function RadioShowcase() {
       <div className="space-y-12">
         <ComponentExample
           title="Default"
-          description="A standard radio group component."
+          description="A standard radio component."
           code={`import { RadioGroup, RadioGroupItem } from '@mspbotsui/components';
 
 <RadioGroup defaultValue="default">

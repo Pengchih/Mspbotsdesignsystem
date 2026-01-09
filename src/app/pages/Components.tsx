@@ -62,7 +62,7 @@ export function Components({ onNavigate }: { onNavigate: (tab: string) => void }
           onClick={() => onNavigate('checkbox')}
         />
         <NavCard
-          title="Radio Group"
+          title="Radio"
           description="A set of checkable buttons where no more than one can be checked at a time."
           onClick={() => onNavigate('radio')}
         />

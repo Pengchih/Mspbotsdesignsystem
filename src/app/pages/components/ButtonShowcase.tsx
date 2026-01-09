@@ -9,7 +9,10 @@ import {
   DownloadIcon,
   PaperPlaneIcon,
   CheckIcon,
-  InfoCircledIcon
+  InfoCircledIcon,
+  ArrowRightIcon,
+  ReloadIcon,
+  GearIcon
 } from '@radix-ui/react-icons';
 
 export function ButtonShowcase() {
@@ -225,6 +228,21 @@ export function ButtonShowcase() {
             <Button colorStyle="info" variant="solid" disabled>Info</Button>
             <Button colorStyle="success" variant="solid" disabled>Success</Button>
             <Button colorStyle="danger" variant="solid" disabled>Danger</Button>
+          </div>
+        </ComponentExample>
+        <ComponentExample
+          title="Icon Only Button"
+          description="Buttons can be icon-only, perfect for toolbars or actions where space is limited."
+          code={`import { PlusIcon, TrashIcon, GearIcon } from '@radix-ui/react-icons';
+
+<Button isIconOnly size="sm" leftIcon={<PlusIcon />} />
+<Button isIconOnly size="md" leftIcon={<TrashIcon />} variant="outline" colorStyle="danger" />
+<Button isIconOnly size="lg" leftIcon={<GearIcon />} variant="ghost" colorStyle="info" />`}
+        >
+          <div className="flex flex-wrap gap-4 items-center justify-center">
+            <Button isIconOnly size="sm" leftIcon={<PlusIcon />} />
+            <Button isIconOnly size="md" leftIcon={<TrashIcon />} variant="outline" colorStyle="danger" />
+            <Button isIconOnly size="lg" leftIcon={<GearIcon />} variant="ghost" colorStyle="info" />
           </div>
         </ComponentExample>
       </div>

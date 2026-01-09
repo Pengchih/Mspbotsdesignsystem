@@ -78,7 +78,7 @@ export function Sidebar({
     { id: 'select', label: 'Select' },
     { id: 'textarea', label: 'Textarea' },
     { id: 'checkbox', label: 'Checkbox' },
-    { id: 'radio', label: 'Radio Group' },
+    { id: 'radio', label: 'Radio' },
     { id: 'switch', label: 'Switch' },
     { id: 'slider', label: 'Slider' },
   ];

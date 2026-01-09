@@ -537,6 +537,28 @@
   line-height: 24px;
 }
 
+/* Icon Only Button */
+.mspbots-button-icon-only {
+  width: var(--mspbots-button-size-md);
+  height: var(--mspbots-button-size-md);
+  padding: 0;
+  border-radius: var(--radius-button);
+}
+
+.mspbots-button-icon-only.mspbots-button-sm {
+  width: var(--mspbots-button-size-sm);
+  height: var(--mspbots-button-size-sm);
+}
+
+.mspbots-button-icon-only.mspbots-button-lg {
+  width: var(--mspbots-button-size-lg);
+  height: var(--mspbots-button-size-lg);
+}
+
+.mspbots-button-icon-only .mspbots-button-content {
+  display: none;
+}
+
 /* Input Container */
 .mspbots-input-container {
   display: flex;
