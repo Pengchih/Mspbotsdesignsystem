@@ -16,7 +16,7 @@ const NavCard = ({
   >
     <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
     <div className="relative z-10 space-y-4">
-      <h3 className="text-xl font-semibold tracking-tight">{title}</h3>
+      <div className="text-[20px] font-semibold tracking-tight line-clamp-2">{title}</div>
       <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
       <div className="flex items-center text-sm font-medium text-primary group-hover:translate-x-1 transition-transform">
         Explore <ArrowRightIcon className="ml-1 w-4 h-4" />
@@ -27,7 +27,7 @@ const NavCard = ({
 
 export function Components({ onNavigate }: { onNavigate: (tab: string) => void }) {
   return (
-    <div className="space-y-12">
+    <div className="w-full max-w-5xl mx-auto space-y-12">
       <div className="space-y-4">
         <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">Components</h1>
         <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
@@ -70,6 +70,11 @@ export function Components({ onNavigate }: { onNavigate: (tab: string) => void }
           title="Switch"
           description="A control that allows the user to toggle between checked and not checked."
           onClick={() => onNavigate('switch')}
+        />
+        <NavCard
+          title="Slider"
+          description="An input where the user selects a value from within a given range."
+          onClick={() => onNavigate('slider')}
         />
         <NavCard
           title="Badge"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { 
   ColorWheelIcon, 
   FontFamilyIcon, 
@@ -19,67 +19,42 @@ import {
   TextAlignLeftIcon,
   DropdownMenuIcon,
   PersonIcon,
-  CardStackIcon
+  CardStackIcon,
+  PlusIcon
 } from '@radix-ui/react-icons';
 
 interface SidebarProps {
   activeCategory: 'foundation' | 'components';
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  width: number;
+  isResizing: boolean;
+  onResizeStart: () => void;
 }
 
-export function Sidebar({ activeCategory, activeTab, setActiveTab }: SidebarProps) {
-  const [isFoundationOpen, setIsFoundationOpen] = useState(true);
-  const [isComponentsOpen, setIsComponentsOpen] = useState(true);
-  const [width, setWidth] = useState(260);
-  const [isResizing, setIsResizing] = useState(false);
-  
-  // New state for nested sections
+export function Sidebar({ 
+  activeCategory, 
+  activeTab, 
+  setActiveTab,
+  width,
+  isResizing,
+  onResizeStart
+}: SidebarProps) {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     color: true,
     typography: true,
-    icons: true
+    icons: true,
+    basic: true,
+    form: true,
+    data: true,
+    notice: true,
+    navigation: true,
+    others: true,
   });
 
   const toggleSection = (id: string) => {
     setOpenSections(prev => ({ ...prev, [id]: !prev[id] }));
   };
-
-  const startResizing = useCallback(() => {
-    setIsResizing(true);
-  }, []);
-
-  const stopResizing = useCallback(() => {
-    setIsResizing(false);
-  }, []);
-
-  const resize = useCallback(
-    (mouseMoveEvent: MouseEvent) => {
-      if (isResizing) {
-        const newWidth = mouseMoveEvent.clientX;
-        if (newWidth >= 180 && newWidth <= 480) {
-          setWidth(newWidth);
-        }
-      }
-    },
-    [isResizing]
-  );
-
-  useEffect(() => {
-    if (isResizing) {
-      window.addEventListener("mousemove", resize);
-      window.addEventListener("mouseup", stopResizing);
-    } else {
-      window.removeEventListener("mousemove", resize);
-      window.removeEventListener("mouseup", stopResizing);
-    }
-    return () => {
-      window.removeEventListener("mousemove", resize);
-      window.removeEventListener("mouseup", stopResizing);
-    };
-  }, [isResizing, resize, stopResizing]);
-
-  const foundationItems = [];
 
   const colorItems = [
     { id: 'colors', label: 'Color Palette', icon: CircleIcon },
@@ -93,22 +68,30 @@ export function Sidebar({ activeCategory, activeTab, setActiveTab }: SidebarProp
     { id: 'typography', label: 'Scales', icon: TextNoneIcon },
   ];
 
-  const componentItems = [
-    { id: 'components', label: 'Overview', icon: ComponentInstanceIcon },
-    { id: 'buttons', label: 'Buttons', icon: ComponentBooleanIcon },
-    { id: 'inputs', label: 'Inputs', icon: DesktopIcon },
-    { id: 'textarea', label: 'Textarea', icon: TextAlignLeftIcon },
-    { id: 'select', label: 'Select', icon: DropdownMenuIcon },
-    { id: 'checkbox', label: 'Checkbox', icon: CheckboxIcon },
-    { id: 'radio', label: 'Radio Group', icon: RadiobuttonIcon },
-    { id: 'switch', label: 'Switch', icon: SliderIcon },
-    { id: 'badge', label: 'Badge', icon: IdCardIcon },
-    { id: 'avatar', label: 'Avatar', icon: PersonIcon },
-    { id: 'card', label: 'Card', icon: CardStackIcon },
+  const basicItems = [
+    { id: 'buttons', label: 'Button' },
   ];
 
-  const currentItems = activeCategory === 'foundation' ? foundationItems : componentItems;
-  const currentTitle = activeCategory === 'foundation' ? 'Core Foundation' : 'Component Library';
+  const formItems = [
+    { id: 'inputs', label: 'Input' },
+    { id: 'input-number', label: 'Input Number' },
+    { id: 'select', label: 'Select' },
+    { id: 'textarea', label: 'Textarea' },
+    { id: 'checkbox', label: 'Checkbox' },
+    { id: 'radio', label: 'Radio Group' },
+    { id: 'switch', label: 'Switch' },
+    { id: 'slider', label: 'Slider' },
+  ];
+
+  const dataItems = [
+    { id: 'badge', label: 'Badge' },
+    { id: 'avatar', label: 'Avatar' },
+    { id: 'card', label: 'Card' },
+  ];
+
+  const noticeItems: any[] = [];
+  const navigationItems: any[] = [];
+  const othersItems: any[] = [];
 
   const renderSection = (
     title: string, 
@@ -145,7 +128,7 @@ export function Sidebar({ activeCategory, activeTab, setActiveTab }: SidebarProp
                     : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 }`}
               >
-                <Icon className={`transition-colors size-[15px] ${isActive ? 'text-primary' : 'text-muted-foreground/40 group-hover:text-muted-foreground/70'}`} />
+                {Icon && <Icon className={`transition-colors size-[15px] ${isActive ? 'text-primary' : 'text-muted-foreground/40 group-hover:text-muted-foreground/70'}`} />}
                 <span className="truncate">{item.label}</span>
               </button>
             );
@@ -168,13 +151,34 @@ export function Sidebar({ activeCategory, activeTab, setActiveTab }: SidebarProp
             {renderSection('Typography', typographyItems, openSections.typography, () => toggleSection('typography'))}
           </>
         ) : (
-          renderSection('Component Library', componentItems, isComponentsOpen, setIsComponentsOpen)
+          <>
+            <button 
+              onClick={() => setActiveTab('components')}
+              className={`w-full flex items-center gap-2.5 px-3 py-1.5 rounded-md text-sm transition-all duration-200 group ${
+                activeTab === 'components' 
+                  ? 'bg-secondary text-primary font-medium' 
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+              }`}
+            >
+              <ComponentInstanceIcon className={`transition-colors size-[15px] ${activeTab === 'components' ? 'text-primary' : 'text-muted-foreground/40 group-hover:text-muted-foreground/70'}`} />
+              <span className="truncate">Overview</span>
+            </button>
+
+            <div className="space-y-6">
+              {renderSection('Basic', basicItems, openSections.basic, () => toggleSection('basic'))}
+              {renderSection('Form', formItems, openSections.form, () => toggleSection('form'))}
+              {renderSection('Data', dataItems, openSections.data, () => toggleSection('data'))}
+              {noticeItems.length > 0 && renderSection('Notice', noticeItems, openSections.notice, () => toggleSection('notice'))}
+              {navigationItems.length > 0 && renderSection('Navigation', navigationItems, openSections.navigation, () => toggleSection('navigation'))}
+              {othersItems.length > 0 && renderSection('Others', othersItems, openSections.others, () => toggleSection('others'))}
+            </div>
+          </>
         )}
       </nav>
 
       {/* Resize Handle */}
       <div 
-        onMouseDown={startResizing}
+        onMouseDown={onResizeStart}
         className={`absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize group z-30 transition-colors ${isResizing ? 'bg-primary/20' : 'hover:bg-primary/10'}`}
       >
         <div className={`absolute inset-y-0 right-0 w-[1px] bg-border/40 group-hover:bg-primary/30 transition-colors ${isResizing ? 'bg-primary/50' : ''}`} />

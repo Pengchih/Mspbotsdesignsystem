@@ -1,57 +1,66 @@
 import React from 'react';
-import { ChevronDownIcon } from '@radix-ui/react-icons';
+import * as SelectPrimitive from '@radix-ui/react-select';
+import { ChevronDownIcon, ChevronUpIcon, CheckIcon } from '@radix-ui/react-icons';
 
-export interface SelectProps
-  extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  /** Label text */
-  label?: string;
-  /** Container class name */
-  containerClassName?: string;
-  /** Options array */
-  options?: Array<{
-    value: string;
-    label: string;
-  }>;
+export type SelectSize = 'sm' | 'md' | 'lg';
+export type SelectVariant = 'plain' | 'error' | 'disable';
+
+export interface SelectOption {
+  value: string;
+  label: string;
+  disabled?: boolean;
 }
 
-export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  (
-    { label, containerClassName, options, className, children, ...props },
-    ref
-  ) => {
-    const selectClasses = ['mspbots-select', className]
-      .filter(Boolean)
-      .join(' ');
+export interface SelectProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root> {
+  size?: SelectSize;
+  variant?: SelectVariant;
+  placeholder?: string;
+  options: SelectOption[];
+  className?: string;
+}
 
-    const selectElement = (
-      <div className="mspbots-select-wrapper">
-        <select ref={ref} className={selectClasses} {...props}>
-          {options
-            ? options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))
-            : children}
-        </select>
-        <ChevronDownIcon
-          className="mspbots-select-arrow"
-          width={15}
-          height={15}
-        />
-      </div>
+export const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
+  ({ size = 'md', variant = 'plain', placeholder = 'Select', options, className, disabled, ...props }, ref) => {
+    const isError = variant === 'error';
+    const isDisabled = variant === 'disable' || disabled;
+
+    const triggerClasses = [
+      'mspbots-select-trigger',
+      `mspbots-select-${size}`,
+      isError ? 'mspbots-select-error' : '',
+      className
+    ].filter(Boolean).join(' ');
+
+    return (
+      <SelectPrimitive.Root disabled={isDisabled} {...props}>
+        <SelectPrimitive.Trigger ref={ref} className={triggerClasses}>
+          <SelectPrimitive.Value placeholder={placeholder} />
+          <SelectPrimitive.Icon className="mspbots-select-icon">
+            <ChevronDownIcon />
+          </SelectPrimitive.Icon>
+        </SelectPrimitive.Trigger>
+
+        <SelectPrimitive.Portal>
+          <SelectPrimitive.Content className="mspbots-select-content" position="popper" sideOffset={5}>
+            <SelectPrimitive.Viewport className="mspbots-select-viewport">
+              {options.map((option) => (
+                <SelectPrimitive.Item
+                  key={option.value}
+                  value={option.value}
+                  disabled={option.disabled}
+                  className={`mspbots-select-item mspbots-select-item-${size}`}
+                >
+                  <SelectPrimitive.ItemText>{option.label}</SelectPrimitive.ItemText>
+                  <SelectPrimitive.ItemIndicator className="mspbots-select-item-indicator">
+                    <CheckIcon />
+                  </SelectPrimitive.ItemIndicator>
+                </SelectPrimitive.Item>
+              ))}
+            </SelectPrimitive.Viewport>
+          </SelectPrimitive.Content>
+        </SelectPrimitive.Portal>
+      </SelectPrimitive.Root>
     );
-
-    if (label) {
-      return (
-        <div className={`mspbots-input-container ${containerClassName || ''}`}>
-          <label className="mspbots-input-label">{label}</label>
-          {selectElement}
-        </div>
-      );
-    }
-
-    return selectElement;
   }
 );
 

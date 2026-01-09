@@ -3,7 +3,7 @@ import { ComponentExample } from '../../components/ComponentExample';
 
 export function BadgeShowcase() {
   return (
-    <div className="w-fit mx-auto space-y-10 pb-20">
+    <div className="w-full max-w-5xl mx-auto space-y-10 pb-20">
       <div className="space-y-4">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Badge</h1>
         <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">

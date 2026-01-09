@@ -1,89 +1,142 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import { CrossCircledIcon } from '@radix-ui/react-icons';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  /** Label text */
-  label?: string;
-  /** Icon component to display on the left */
+export type InputSize = 'sm' | 'md' | 'lg';
+export type InputVariant = 'plain' | 'error' | 'disable';
+
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  /** The size of the input */
+  size?: InputSize;
+  /** The visual variant of the input */
+  variant?: InputVariant;
+  /** Whether the input is clearable */
+  clearable?: boolean;
+  /** Icon to display on the left side */
   leftIcon?: React.ReactNode;
-  /** Icon component to display on the right */
+  /** Icon to display on the right side */
   rightIcon?: React.ReactNode;
-  /** Error message */
-  error?: string;
-  /** Success message */
-  success?: string;
-  /** Container class name */
-  containerClassName?: string;
+  /** Callback when the clear button is clicked */
+  onClear?: () => void;
+  /** Maximum number of characters allowed (shows counter) */
+  wordLimit?: number;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      label,
-      leftIcon,
-      rightIcon,
-      error,
-      success,
-      containerClassName,
-      className,
-      ...props
-    },
-    ref
-  ) => {
+  ({ 
+    size = 'md', 
+    variant = 'plain', 
+    clearable = false, 
+    leftIcon, 
+    rightIcon, 
+    className, 
+    disabled, 
+    onClear,
+    wordLimit,
+    value,
+    onChange,
+    ...props 
+  }, ref) => {
+    const [internalValue, setInternalValue] = useState<string | number | readonly string[] | undefined>(props.defaultValue || '');
+    const isControlled = value !== undefined;
+    const currentValue = isControlled ? value : internalValue;
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!isControlled) {
+        setInternalValue(e.target.value);
+      }
+      onChange?.(e);
+    };
+
+    const handleClear = () => {
+      if (!isControlled) {
+        setInternalValue('');
+      }
+      
+      // Create a synthetic event to trigger onChange
+      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value")?.set;
+      const input = internalRef.current;
+      
+      if (input && nativeInputValueSetter) {
+        nativeInputValueSetter.call(input, '');
+        const event = new Event('input', { bubbles: true });
+        input.dispatchEvent(event);
+      }
+
+      onClear?.();
+    };
+
+    const internalRef = useRef<HTMLInputElement>(null);
+    const combinedRef = (node: HTMLInputElement) => {
+      internalRef.current = node;
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (ref) {
+        (ref as React.MutableRefObject<HTMLInputElement | null>).current = node;
+      }
+    };
+
+    const isError = variant === 'error';
+    const isDisabled = variant === 'disable' || disabled;
+
     const inputClasses = [
       'mspbots-input',
-      leftIcon && 'mspbots-input-with-left-icon',
-      rightIcon && 'mspbots-input-with-right-icon',
-      error && 'mspbots-input-error',
-      success && 'mspbots-input-success',
-      className,
-    ]
-      .filter(Boolean)
-      .join(' ');
+      `mspbots-input-${size}`,
+      isError ? 'mspbots-input-error' : '',
+      leftIcon ? 'mspbots-input-with-left-icon' : '',
+      (rightIcon || (clearable && currentValue)) ? 'mspbots-input-with-right-icon' : '',
+      className
+    ].filter(Boolean).join(' ');
 
-    const inputElement = (
-      <>
-        {leftIcon && (
-          <span className="mspbots-input-icon-left w-[15px] h-[15px]">
-            {leftIcon}
-          </span>
-        )}
-        <input ref={ref} className={inputClasses} {...props} />
-        {rightIcon && (
-          <span className="mspbots-input-icon-right w-[15px] h-[15px]">
-            {rightIcon}
-          </span>
-        )}
-      </>
-    );
+    const wrapperClasses = [
+      'mspbots-input-wrapper',
+      'relative',
+      'w-full'
+    ].filter(Boolean).join(' ');
 
-    if (label || error || success) {
-      return (
-        <div className={`mspbots-input-container ${containerClassName || ''}`}>
-          {label && <label className="mspbots-input-label">{label}</label>}
-          {leftIcon || rightIcon ? (
-            <div className="mspbots-input-wrapper">{inputElement}</div>
-          ) : (
-            inputElement
+    const charCount = String(currentValue || '').length;
+
+    return (
+      <div className="w-full">
+        <div className={wrapperClasses}>
+          {leftIcon && (
+            <div className={`mspbots-input-icon-left mspbots-input-icon-${size}`}>
+              {leftIcon}
+            </div>
           )}
-          {error && (
-            <span className="mspbots-input-message mspbots-input-message-error text-xs">
-              {error}
-            </span>
+          
+          <input
+            ref={combinedRef}
+            className={inputClasses}
+            disabled={isDisabled}
+            value={value}
+            onChange={handleChange}
+            {...props}
+          />
+
+          {clearable && currentValue && !isDisabled && (
+            <button
+              type="button"
+              className={`mspbots-input-clear-button mspbots-input-clear-${size}`}
+              onClick={handleClear}
+              tabIndex={-1}
+            >
+              <CrossCircledIcon />
+            </button>
           )}
-          {success && (
-            <span className="mspbots-input-message mspbots-input-message-success text-xs">
-              {success}
-            </span>
+
+          {!clearable && rightIcon && (
+            <div className={`mspbots-input-icon-right mspbots-input-icon-${size}`}>
+              {rightIcon}
+            </div>
           )}
         </div>
-      );
-    }
-
-    if (leftIcon || rightIcon) {
-      return <div className="mspbots-input-wrapper">{inputElement}</div>;
-    }
-
-    return <input ref={ref} className={inputClasses} {...props} />;
+        {wordLimit && (
+          <div className="mspbots-input-word-limit">
+            {charCount}/{wordLimit}
+          </div>
+        )}
+      </div>
+    );
   }
 );
 

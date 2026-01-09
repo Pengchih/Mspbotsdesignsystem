@@ -31,14 +31,20 @@ export type { CheckboxProps } from './Checkbox';
 export { Input } from './Input';
 export type { InputProps } from './Input';
 
+export { InputNumber } from './InputNumber';
+export type { InputNumberProps } from './InputNumber';
+
+export { Select } from './Select';
+export type { SelectProps, SelectOption } from './Select';
+
 export { RadioGroup, RadioGroupItem } from './Radio';
 export type { RadioGroupProps, RadioGroupItemProps } from './Radio';
 
-export { Select } from './Select';
-export type { SelectProps } from './Select';
-
 export { Switch } from './Switch';
 export type { SwitchProps } from './Switch';
+
+export { Slider } from './Slider';
+export type { SliderProps } from './Slider';
 
 export { Textarea } from './Textarea';
 export type { TextareaProps } from './Textarea';

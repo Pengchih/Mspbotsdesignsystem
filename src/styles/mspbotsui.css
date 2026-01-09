@@ -560,15 +560,463 @@
   align-items: center;
 }
 
+
+
+
+/* Switch */
+:root {
+  --mspbots-switch-brand-checked: #17B3A3;
+  --mspbots-switch-no-brand-checked: #67C23A;
+  --mspbots-switch-unchecked: #DEDFE6;
+  --mspbots-switch-unchecked-no-brand: #EA3829;
+  --mspbots-switch-disabled-brand: #B9E8E3;
+  --mspbots-switch-disabled-no-brand: #C2E8AF;
+  --mspbots-switch-disabled-unchecked: #FA9F96; /* No-brand unchecked disabled? */
+  /* Actually based on Figma:
+     Brand=True, Active=False -> #DEDFE6 (Grey)
+     Brand=False, Active=False -> #EA3829 (Red)
+     
+     Brand=True, Active=True -> #17B3A3 (Teal)
+     Brand=False, Active=True -> #67C23A (Green)
+     
+     Disabled states use lighter versions.
+  */
+}
+
+.mspbots-switch {
+  all: unset;
+  border-radius: 9999px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.mspbots-switch:disabled {
+  cursor: not-allowed;
+}
+
+/* Brand Colors */
+.mspbots-switch-brand[data-state="unchecked"] {
+  background-color: #DEDFE6;
+}
+.mspbots-switch-brand[data-state="checked"] {
+  background-color: #17B3A3;
+}
+.mspbots-switch-brand:disabled[data-state="unchecked"] {
+  background-color: #DEDFE6; /* Same grey but maybe opacity? Figma shows same hex for disabled unchecked? */
+  /* Re-checking Figma: Brand=True, Active=False, Disable=True -> #DEDFE6 (Same as enabled) */
+  opacity: 0.6; 
+}
+.mspbots-switch-brand:disabled[data-state="checked"] {
+  background-color: #B9E8E3;
+  opacity: 1;
+}
+
+/* No Brand Colors */
+.mspbots-switch-no-brand[data-state="unchecked"] {
+  background-color: #EA3829;
+}
+.mspbots-switch-no-brand[data-state="checked"] {
+  background-color: #67C23A;
+}
+.mspbots-switch-no-brand:disabled[data-state="unchecked"] {
+  background-color: #FA9F96;
+}
+.mspbots-switch-no-brand:disabled[data-state="checked"] {
+  background-color: #C2E8AF;
+}
+
+/* Thumb */
+.mspbots-switch-thumb {
+  display: block;
+  background-color: white;
+  border-radius: 9999px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  will-change: transform;
+}
+
+/* Sizes */
+/* XS: W32 H16, Thumb 12 */
+.mspbots-switch-xs {
+  width: 32px;
+  height: 16px;
+}
+.mspbots-switch-thumb-xs {
+  width: 12px;
+  height: 12px;
+  transform: translateX(2px);
+}
+.mspbots-switch-xs[data-state="checked"] .mspbots-switch-thumb-xs {
+  transform: translateX(18px); /* 32 - 12 - 2 */
+}
+
+/* SM: W40 H20, Thumb 16 */
+.mspbots-switch-sm {
+  width: 40px;
+  height: 20px;
+}
+.mspbots-switch-thumb-sm {
+  width: 16px;
+  height: 16px;
+  transform: translateX(2px);
+}
+.mspbots-switch-sm[data-state="checked"] .mspbots-switch-thumb-sm {
+  transform: translateX(22px); /* 40 - 16 - 2 */
+}
+
+/* MD: W48 H24, Thumb 20 */
+.mspbots-switch-md {
+  width: 48px;
+  height: 24px;
+}
+.mspbots-switch-thumb-md {
+  width: 20px;
+  height: 20px;
+  transform: translateX(2px);
+}
+.mspbots-switch-md[data-state="checked"] .mspbots-switch-thumb-md {
+  transform: translateX(26px); /* 48 - 20 - 2 */
+}
+
+:root {
+  --mspbots-select-bg: var(--white-0);
+  --mspbots-select-border: #DCDFE6;
+  --mspbots-select-placeholder: #C0C4CC;
+  --mspbots-select-item-hover: #F5F7FA;
+  --mspbots-select-item-selected: #F5F7FA;
+}
+
+.mspbots-select-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--mspbots-select-border);
+  background-color: var(--mspbots-select-bg);
+  color: var(--foreground);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+}
+
+.mspbots-select-trigger:hover:not(:disabled) {
+  border-color: var(--mspbots-primary-hover);
+}
+
+.mspbots-select-trigger:focus {
+  border-color: var(--mspbots-input-border-focus);
+  ring: 4px;
+  ring-color: rgba(28, 28, 30, 0.05);
+}
+
+.mspbots-select-trigger[data-placeholder] {
+  color: var(--mspbots-select-placeholder);
+}
+
+.mspbots-select-trigger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--mspbots-input-number-btn-bg);
+}
+
+.mspbots-select-error {
+  border-color: var(--destructive);
+}
+
+.mspbots-select-icon {
+  color: var(--muted-foreground);
+  margin-left: 8px;
+}
+
+/* Sizes */
+.mspbots-select-sm {
+  height: 24px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+.mspbots-select-md {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.mspbots-select-lg {
+  height: 40px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+/* Content */
+.mspbots-select-content {
+  overflow: hidden;
+  background-color: var(--mspbots-select-bg);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  min-width: var(--radix-select-trigger-width);
+}
+
+.mspbots-select-viewport {
+  padding: 4px;
+}
+
+.mspbots-select-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 24px 0 8px; /* Right padding for check icon */
+  border-radius: 2px;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  color: var(--foreground);
+}
+
+.mspbots-select-item[data-highlighted] {
+  background-color: var(--mspbots-select-item-hover);
+  color: var(--mspbots-primary);
+}
+
+.mspbots-select-item[data-state="checked"] {
+  background-color: var(--mspbots-select-item-selected);
+  color: var(--mspbots-primary);
+  font-weight: 500;
+}
+
+.mspbots-select-item-sm {
+  height: 24px;
+  font-size: 12px;
+}
+
+.mspbots-select-item-md,
+.mspbots-select-item-lg {
+  height: 32px;
+  font-size: 14px;
+}
+
+.mspbots-select-item-indicator {
+  position: absolute;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Input Number */
+:root {
+  --mspbots-input-number-bg: var(--white-0);
+  --mspbots-input-number-btn-bg: #F5F7FA;
+  --mspbots-input-number-btn-hover-bg: #E4E7ED;
+  --mspbots-input-number-btn-color: #606266;
+  --mspbots-input-number-border: #DCDFE6;
+}
+
+.mspbots-input-number {
+  display: inline-flex;
+  border: 1px solid var(--mspbots-input-number-border);
+  border-radius: var(--radius-card);
+  background-color: var(--mspbots-input-number-bg);
+  transition: all 0.2s ease;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.mspbots-input-number:focus-within {
+  border-color: var(--mspbots-input-border-focus);
+  ring: 4px;
+  ring-color: rgba(28, 28, 30, 0.05);
+}
+
+.mspbots-input-number-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--mspbots-input-number-btn-bg);
+}
+
+.mspbots-input-number-disabled .mspbots-input-number-field {
+  background-color: transparent;
+}
+
+/* Field */
+.mspbots-input-number-field {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--foreground);
+  text-align: center;
+  width: 100%;
+  padding: 0;
+  -moz-appearance: textfield;
+}
+
+.mspbots-input-number-field::-webkit-outer-spin-button,
+.mspbots-input-number-field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Buttons */
+.mspbots-input-number-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--mspbots-input-number-btn-bg);
+  color: var(--mspbots-input-number-btn-color);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  padding: 0;
+}
+
+.mspbots-input-number-btn:hover:not(:disabled) {
+  background-color: var(--mspbots-input-number-btn-hover-bg);
+  color: var(--mspbots-primary);
+}
+
+.mspbots-input-number-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Horizontal Layout */
+.mspbots-input-number-horizontal {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.mspbots-input-number-horizontal .mspbots-input-number-btn {
+  width: 40px; /* Default LG */
+  flex-shrink: 0;
+}
+
+.mspbots-input-number-horizontal .mspbots-input-number-btn-minus {
+  border-right: 1px solid var(--mspbots-input-number-border);
+}
+
+.mspbots-input-number-horizontal .mspbots-input-number-btn-plus {
+  border-left: 1px solid var(--mspbots-input-number-border);
+}
+
+/* Vertical Layout */
+.mspbots-input-number-vertical {
+  position: relative;
+  align-items: center;
+}
+
+.mspbots-input-number-vertical .mspbots-input-number-input-wrapper {
+  flex: 1;
+  padding-right: 32px; /* Space for controls */
+}
+
+.mspbots-input-number-vertical .mspbots-input-number-field {
+  text-align: left;
+  padding-left: 12px;
+}
+
+.mspbots-input-number-controls {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 32px; /* Default width for vertical controls */
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--mspbots-input-number-border);
+}
+
+.mspbots-input-number-controls .mspbots-input-number-btn {
+  flex: 1;
+  width: 100%;
+  height: 50%;
+}
+
+.mspbots-input-number-btn-up {
+  border-bottom: 1px solid var(--mspbots-input-number-border);
+}
+
+/* Sizes */
+/* LG (40px) */
+.mspbots-input-number-lg {
+  height: 40px;
+}
+.mspbots-input-number-lg.mspbots-input-number-horizontal .mspbots-input-number-btn {
+  width: 40px;
+}
+.mspbots-input-number-lg .mspbots-input-number-field {
+  font-size: 14px;
+}
+
+/* MD (32px) */
+.mspbots-input-number-md {
+  height: 32px;
+}
+.mspbots-input-number-md.mspbots-input-number-horizontal .mspbots-input-number-btn {
+  width: 32px;
+}
+.mspbots-input-number-md .mspbots-input-number-field {
+  font-size: 14px;
+}
+
+/* SM (24px) */
+.mspbots-input-number-sm {
+  height: 24px;
+}
+.mspbots-input-number-sm.mspbots-input-number-horizontal .mspbots-input-number-btn {
+  width: 24px;
+}
+.mspbots-input-number-sm .mspbots-input-number-field {
+  font-size: 12px;
+}
+
+/* XS (20px? Or 24px?) - Figma naming is weird, let's assume 20px based on usual scale */
+.mspbots-input-number-xs {
+  height: 20px;
+}
+.mspbots-input-number-xs.mspbots-input-number-horizontal .mspbots-input-number-btn {
+  width: 20px;
+}
+.mspbots-input-number-xs .mspbots-input-number-field {
+  font-size: 12px;
+}
+
+/* Select */
+
+
+
 /* Input Base */
 .mspbots-input {
   width: 100%;
-  padding: 10px 16px;
   background-color: var(--mspbots-input-bg);
   border: 1px solid var(--mspbots-input-border);
   border-radius: var(--radius-card);
   transition: all 0.2s ease;
   outline: none;
+  font-family: var(--font-family-sans);
+  color: var(--foreground);
+}
+
+
+.mspbots-input-sm {
+  height: 24px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+.mspbots-input-md {
+  height: 32px;
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+.mspbots-input-lg {
+  height: 40px;
+  padding: 8px 12px;
+  font-size: 14px;
 }
 
 .mspbots-input::placeholder {
@@ -581,28 +1029,84 @@
   ring-color: rgba(28, 28, 30, 0.05);
 }
 
-/* Input with Icons */
-.mspbots-input-with-left-icon {
-  padding-left: 44px;
+.mspbots-input:disabled {
+  background-color: var(--muted);
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
-.mspbots-input-with-right-icon {
-  padding-right: 44px;
+/* Input with Icons */
+.mspbots-input-with-left-icon.mspbots-input-sm {
+  padding-left: 28px;
+}
+
+.mspbots-input-with-left-icon.mspbots-input-md {
+  padding-left: 32px;
+}
+
+.mspbots-input-with-left-icon.mspbots-input-lg {
+  padding-left: 36px;
+}
+
+.mspbots-input-with-right-icon.mspbots-input-sm {
+  padding-right: 28px;
+}
+
+.mspbots-input-with-right-icon.mspbots-input-md {
+  padding-right: 32px;
+}
+
+.mspbots-input-with-right-icon.mspbots-input-lg {
+  padding-right: 36px;
 }
 
 .mspbots-input-icon-left {
   position: absolute;
-  left: 16px;
+  left: 8px;
   color: var(--muted-foreground);
   pointer-events: none;
   transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .mspbots-input-icon-right {
   position: absolute;
-  right: 16px;
+  right: 8px;
   color: var(--muted-foreground);
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.mspbots-input-clear-button {
+  position: absolute;
+  right: 8px;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.mspbots-input-clear-button:hover {
+  color: var(--foreground);
+}
+
+.mspbots-input-word-limit {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  margin-top: 4px;
+  text-align: right;
 }
 
 .mspbots-input-wrapper:focus-within .mspbots-input-icon-left {
@@ -644,17 +1148,27 @@
 
 /* Checkbox */
 :root {
-  --mspbots-checkbox-size: 16px;
+  --mspbots-checkbox-size-xs: 12px;
+  --mspbots-checkbox-size-sm: 14px;
+  --mspbots-checkbox-size-md: 14px;
+  --mspbots-checkbox-size-default: 16px; /* Legacy support */
+
   --mspbots-checkbox-bg: var(--input-background);
   --mspbots-checkbox-border: var(--border);
   --mspbots-checkbox-checked-bg: var(--mspbots-primary);
   --mspbots-checkbox-checked-fg: var(--mspbots-primary-foreground);
+  
+  /* Bordered Variant Variables */
+  --mspbots-checkbox-bordered-bg: var(--white-0);
+  --mspbots-checkbox-bordered-border: var(--slate-300);
+  --mspbots-checkbox-bordered-checked-border: var(--seafoam-500);
+  --mspbots-checkbox-bordered-checked-text: var(--seafoam-500);
 }
 
 .mspbots-checkbox {
   appearance: none;
-  width: var(--mspbots-checkbox-size);
-  height: var(--mspbots-checkbox-size);
+  width: var(--mspbots-checkbox-size, var(--mspbots-checkbox-size-default));
+  height: var(--mspbots-checkbox-size, var(--mspbots-checkbox-size-default));
   border: 1px solid var(--mspbots-checkbox-border);
   border-radius: 4px;
   background-color: var(--mspbots-checkbox-bg);
@@ -666,7 +1180,21 @@
   padding: 0;
 }
 
+.mspbots-checkbox-xs {
+  --mspbots-checkbox-size: var(--mspbots-checkbox-size-xs);
+  border-radius: 2px;
+}
+
+.mspbots-checkbox-sm {
+  --mspbots-checkbox-size: var(--mspbots-checkbox-size-sm);
+}
+
+.mspbots-checkbox-md {
+  --mspbots-checkbox-size: var(--mspbots-checkbox-size-md);
+}
+
 .mspbots-checkbox[data-state="checked"],
+.mspbots-checkbox[data-state="indeterminate"],
 .mspbots-checkbox:checked {
   background-color: var(--mspbots-checkbox-checked-bg);
   border-color: var(--mspbots-checkbox-checked-bg);
@@ -681,20 +1209,113 @@
   height: 100%;
 }
 
+/* Checkbox Wrapper (for Label and Bordered variant) */
+.mspbots-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.mspbots-checkbox-wrapper-bordered {
+  border: 1px solid var(--mspbots-checkbox-bordered-border);
+  background-color: var(--mspbots-checkbox-bordered-bg);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mspbots-checkbox-wrapper-bordered:hover {
+  border-color: var(--mspbots-primary-hover);
+}
+
+.mspbots-checkbox-wrapper-bordered[data-state="checked"],
+.mspbots-checkbox-wrapper-bordered[data-state="indeterminate"] {
+  border-color: var(--mspbots-checkbox-bordered-checked-border);
+}
+
+.mspbots-checkbox-wrapper-bordered[data-state="checked"] .mspbots-checkbox-label,
+.mspbots-checkbox-wrapper-bordered[data-state="indeterminate"] .mspbots-checkbox-label {
+  color: var(--mspbots-checkbox-bordered-checked-text);
+}
+
+/* Bordered Sizes */
+.mspbots-checkbox-wrapper-xs {
+  height: 24px;
+  padding: 0 8px;
+  gap: 8px;
+}
+
+.mspbots-checkbox-wrapper-sm {
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+}
+
+.mspbots-checkbox-wrapper-md {
+  height: 40px;
+  padding: 0 16px;
+  gap: 12px;
+}
+
+/* Label Styles */
+.mspbots-checkbox-label {
+  color: var(--foreground);
+  font-weight: 500;
+  line-height: 1;
+  user-select: none;
+  cursor: pointer;
+}
+
+.mspbots-checkbox-label-xs {
+  font-size: 12px;
+}
+
+.mspbots-checkbox-label-sm,
+.mspbots-checkbox-label-md {
+  font-size: 14px;
+}
+
+.mspbots-checkbox-wrapper-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* Radio */
 :root {
-  --mspbots-radio-size: 16px;
+  --mspbots-radio-size-xs: 12px;
+  --mspbots-radio-size-sm: 14px;
+  --mspbots-radio-size-md: 14px;
+  --mspbots-radio-size-default: 16px; /* Legacy support */
+  
+  /* Bordered Variant Variables */
+  --mspbots-radio-bordered-bg: var(--white-0);
+  --mspbots-radio-bordered-border: var(--slate-300);
+  --mspbots-radio-bordered-checked-border: var(--seafoam-500);
+  --mspbots-radio-bordered-checked-text: var(--seafoam-500);
 }
 
 .mspbots-radio-item {
   appearance: none;
-  width: var(--mspbots-radio-size);
-  height: var(--mspbots-radio-size);
+  width: var(--mspbots-radio-size, var(--mspbots-radio-size-default));
+  height: var(--mspbots-radio-size, var(--mspbots-radio-size-default));
   border-radius: 50%;
   border: 1px solid var(--mspbots-checkbox-border);
   background-color: var(--mspbots-checkbox-bg);
   cursor: pointer;
   position: relative;
+}
+
+.mspbots-radio-item-xs {
+  --mspbots-radio-size: var(--mspbots-radio-size-xs);
+}
+
+.mspbots-radio-item-sm {
+  --mspbots-radio-size: var(--mspbots-radio-size-sm);
+}
+
+.mspbots-radio-item-md {
+  --mspbots-radio-size: var(--mspbots-radio-size-md);
 }
 
 .mspbots-radio-item[data-state="checked"],
@@ -714,51 +1335,84 @@
 .mspbots-radio-indicator::after {
   content: "";
   display: block;
-  width: 8px;
-  height: 8px;
+  width: 50%;
+  height: 50%;
   border-radius: 50%;
   background-color: var(--mspbots-primary);
 }
 
-/* Switch */
-:root {
-  --mspbots-switch-width: 36px;
-  --mspbots-switch-height: 20px;
-  --mspbots-switch-thumb-size: 16px;
+/* Radio Wrapper (for Label and Bordered variant) */
+.mspbots-radio-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
 }
 
-.mspbots-switch {
-  width: var(--mspbots-switch-width);
-  height: var(--mspbots-switch-height);
-  background-color: var(--muted);
-  border-radius: 9999px;
-  position: relative;
+.mspbots-radio-wrapper-bordered {
+  border: 1px solid var(--mspbots-radio-bordered-border);
+  background-color: var(--mspbots-radio-bordered-bg);
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s;
-  border: none;
-  padding: 0;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.mspbots-switch[data-state="checked"] {
-  background-color: var(--mspbots-primary);
+.mspbots-radio-wrapper-bordered:hover {
+  border-color: var(--mspbots-primary-hover);
 }
 
-.mspbots-switch-thumb {
-  display: block;
-  width: var(--mspbots-switch-thumb-size);
-  height: var(--mspbots-switch-thumb-size);
-  background-color: var(--white-0);
-  border-radius: 9999px;
-  transition: transform 0.2s;
-  transform: translateX(2px);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-  will-change: transform;
+.mspbots-radio-wrapper-bordered[data-state="checked"] {
+  border-color: var(--mspbots-radio-bordered-checked-border);
 }
 
-.mspbots-switch[data-state="checked"] .mspbots-switch-thumb {
-  transform: translateX(calc(var(--mspbots-switch-width) - var(--mspbots-switch-thumb-size) - 2px));
+.mspbots-radio-wrapper-bordered[data-state="checked"] .mspbots-radio-label {
+  color: var(--mspbots-radio-bordered-checked-text);
 }
+
+/* Bordered Sizes */
+.mspbots-radio-wrapper-xs {
+  height: 24px;
+  padding: 0 8px;
+  gap: 8px;
+}
+
+.mspbots-radio-wrapper-sm {
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+}
+
+.mspbots-radio-wrapper-md {
+  height: 40px;
+  padding: 0 16px;
+  gap: 12px;
+}
+
+/* Label Styles */
+.mspbots-radio-label {
+  color: var(--foreground);
+  font-weight: 500;
+  line-height: 1;
+  user-select: none;
+  cursor: pointer;
+}
+
+.mspbots-radio-label-xs {
+  font-size: 12px;
+}
+
+.mspbots-radio-label-sm,
+.mspbots-radio-label-md {
+  font-size: 14px;
+}
+
+.mspbots-radio-wrapper-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+
 
 /* Badge */
 .mspbots-badge {
@@ -933,6 +1587,11 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mspbots-card-description {
@@ -948,4 +1607,128 @@
   padding: 0 24px 24px 24px;
   display: flex;
   align-items: center;
+}
+
+/* Slider */
+:root {
+  --mspbots-slider-track-height: 6px;
+  --mspbots-slider-thumb-size: 20px;
+}
+
+.mspbots-slider-root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  touch-action: none;
+}
+
+.mspbots-slider-root[data-orientation="horizontal"] {
+  height: 20px;
+  width: 100%;
+}
+
+.mspbots-slider-root[data-orientation="vertical"] {
+  flex-direction: column;
+  width: 20px;
+  height: 100%; /* Or set a fixed default height in implementation */
+  min-height: 100px;
+}
+
+.mspbots-slider-track {
+  background-color: var(--muted); /* Fallback */
+  background-color: #E4E7ED; /* Figma style usually */
+  position: relative;
+  flex-grow: 1;
+  border-radius: 9999px;
+}
+
+.mspbots-slider-root[data-orientation="horizontal"] .mspbots-slider-track {
+  height: var(--mspbots-slider-track-height);
+  width: 100%;
+}
+
+.mspbots-slider-root[data-orientation="vertical"] .mspbots-slider-track {
+  width: var(--mspbots-slider-track-height);
+  height: 100%;
+}
+
+.mspbots-slider-range {
+  position: absolute;
+  background-color: var(--mspbots-primary);
+  border-radius: 9999px;
+  height: 100%;
+}
+
+.mspbots-slider-root[data-orientation="vertical"] .mspbots-slider-range {
+  width: 100%;
+  bottom: 0; /* Important for vertical */
+}
+
+.mspbots-slider-thumb {
+  display: block;
+  width: var(--mspbots-slider-thumb-size);
+  height: var(--mspbots-slider-thumb-size);
+  background-color: var(--white-0);
+  border: 2px solid var(--mspbots-primary); /* Figma style */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+
+.mspbots-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 4px var(--seafoam-100); /* Focus ring effect */
+}
+
+.mspbots-slider-thumb:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--seafoam-200);
+}
+
+.mspbots-slider-root[data-disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Marks */
+.mspbots-slider-marks {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.mspbots-slider-mark {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-50%);
+}
+
+.mspbots-slider-root[data-orientation="vertical"] .mspbots-slider-mark {
+  flex-direction: row;
+  align-items: center;
+  transform: translateY(50%);
+}
+
+.mspbots-slider-mark-dot {
+  width: 4px;
+  height: 4px;
+  background-color: #C0C4CC;
+  border-radius: 50%;
+  margin-bottom: 4px;
+}
+
+.mspbots-slider-root[data-orientation="vertical"] .mspbots-slider-mark-dot {
+  margin-bottom: 0;
+  margin-right: 4px;
+}
+
+.mspbots-slider-mark-label {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  white-space: nowrap;
 }

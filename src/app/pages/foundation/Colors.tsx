@@ -17,8 +17,8 @@ export function Colors() {
   );
 
   return (
-    <div className="w-fit mx-auto space-y-10 pb-20">
-      <div className="space-y-4">
+    <div className="w-full max-w-5xl mx-auto space-y-10 pb-20">
+        <div className="space-y-4">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">Color Palette</h1>
         <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
           The MSPBots color system is designed to be accessible, consistent, and semantic.

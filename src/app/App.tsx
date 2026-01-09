@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Colors } from './pages/Foundation/Colors';
 import { Typography } from './pages/Foundation/Typography';
@@ -8,6 +8,7 @@ import { InputShowcase } from './pages/Components/InputShowcase';
 import { CheckboxShowcase } from './pages/Components/CheckboxShowcase';
 import { RadioShowcase } from './pages/Components/RadioShowcase';
 import { SwitchShowcase } from './pages/Components/SwitchShowcase';
+import { SliderShowcase } from './pages/Components/SliderShowcase';
 import { BadgeShowcase } from './pages/Components/BadgeShowcase';
 import { TextareaShowcase } from './pages/Components/TextareaShowcase';
 import { SelectShowcase } from './pages/Components/SelectShowcase';
@@ -20,6 +21,42 @@ import { motion, AnimatePresence } from 'motion/react';
 export default function App() {
   const [activeCategory, setActiveCategory] = useState<'foundation' | 'components'>('foundation');
   const [activeTab, setActiveTab] = useState('foundation');
+  const [width, setWidth] = useState(260);
+  const [isResizing, setIsResizing] = useState(false);
+
+  const startResizing = useCallback(() => {
+    setIsResizing(true);
+  }, []);
+
+  const stopResizing = useCallback(() => {
+    setIsResizing(false);
+  }, []);
+
+  const resize = useCallback(
+    (mouseMoveEvent: MouseEvent) => {
+      if (isResizing) {
+        const newWidth = mouseMoveEvent.clientX;
+        if (newWidth >= 180 && newWidth <= 480) {
+          setWidth(newWidth);
+        }
+      }
+    },
+    [isResizing]
+  );
+
+  useEffect(() => {
+    if (isResizing) {
+      window.addEventListener("mousemove", resize);
+      window.addEventListener("mouseup", stopResizing);
+    } else {
+      window.removeEventListener("mousemove", resize);
+      window.removeEventListener("mouseup", stopResizing);
+    }
+    return () => {
+      window.removeEventListener("mousemove", resize);
+      window.removeEventListener("mouseup", stopResizing);
+    };
+  }, [isResizing, resize, stopResizing]);
 
   const handleCategoryChange = (cat: 'foundation' | 'components') => {
     setActiveCategory(cat);
@@ -96,9 +133,15 @@ export default function App() {
           activeCategory={activeCategory}
           activeTab={activeTab} 
           setActiveTab={setActiveTab} 
+          width={width}
+          isResizing={isResizing}
+          onResizeStart={startResizing}
         />
         
-        <main className="flex-1 ml-64 lg:p-20 overflow-y-auto min-h-[calc(100vh-64px)] bg-background scroll-smooth p-[40px]">
+        <main 
+          className="flex-1 lg:p-20 overflow-y-auto min-h-[calc(100vh-64px)] bg-background scroll-smooth p-[40px]"
+          style={{ marginLeft: `${width}px` }}
+        >
           <div className="w-full">
             <AnimatePresence mode="wait">
               <motion.div
