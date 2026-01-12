@@ -91,6 +91,16 @@ export function Components({ onNavigate }: { onNavigate: (tab: string) => void }
           description="Container for grouped content with header, content, and footer."
           onClick={() => onNavigate('card')}
         />
+        <NavCard
+          title="Progress"
+          description="Displays an indicator showing the completion progress of a task."
+          onClick={() => onNavigate('progress')}
+        />
+        <NavCard
+          title="Tag"
+          description="Used for items that need to be labeled, categorized, or organized."
+          onClick={() => onNavigate('tag')}
+        />
       </div>
     </div>
   );

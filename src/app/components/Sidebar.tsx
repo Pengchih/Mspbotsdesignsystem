@@ -1,27 +1,11 @@
 import React, { useState } from 'react';
 import { 
-  ColorWheelIcon, 
-  FontFamilyIcon, 
   ComponentInstanceIcon, 
-  LayersIcon, 
-  DesktopIcon, 
-  ComponentBooleanIcon, 
   ChevronRightIcon, 
   ChevronDownIcon, 
   DragHandleVerticalIcon,
-  CircleIcon,
-  FrameIcon,
-  TextNoneIcon,
-  CheckboxIcon,
-  RadiobuttonIcon,
-  IdCardIcon,
-  SliderIcon,
-  TextAlignLeftIcon,
-  DropdownMenuIcon,
-  PersonIcon,
-  CardStackIcon,
-  PlusIcon
 } from '@radix-ui/react-icons';
+import { routes } from '../routes';
 
 interface SidebarProps {
   activeCategory: 'foundation' | 'components';
@@ -56,42 +40,36 @@ export function Sidebar({
     setOpenSections(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const colorItems = [
-    { id: 'colors', label: 'Color Palette', icon: CircleIcon },
-  ];
+  // Filter routes based on category and component sub-category
+  const getRoutes = (cat: 'foundation' | 'components', subCat?: string) => {
+    return routes.filter(r => {
+      if (r.category !== cat) return false;
+      if (cat === 'components') {
+        return r.componentCategory === subCat;
+      }
+      // For foundation, we map specific IDs to "sections" conceptually in the old sidebar,
+      // but here we can just return them. 
+      // However, the original sidebar grouped foundation items manually (Colors, Icons, Typography).
+      // Let's replicate that manual grouping for Foundation since it's small, 
+      // OR we can add a 'subcategory' to foundation routes too.
+      // For now, let's keep Foundation manual or semi-manual as it has specific icons.
+      return true;
+    });
+  };
 
-  const iconItems = [
-    { id: 'icons', label: 'Radix Icons', icon: FrameIcon },
-  ];
+  // Foundation items (keep manual for specific icon mapping if needed, or use routes)
+  // We added icons to routes, so we can use them!
+  const colorItems = routes.filter(r => r.id === 'colors');
+  const iconItems = routes.filter(r => r.id === 'icons');
+  const typographyItems = routes.filter(r => r.id === 'typography');
 
-  const typographyItems = [
-    { id: 'typography', label: 'Scales', icon: TextNoneIcon },
-  ];
-
-  const basicItems = [
-    { id: 'buttons', label: 'Button' },
-  ];
-
-  const formItems = [
-    { id: 'inputs', label: 'Input' },
-    { id: 'input-number', label: 'Input Number' },
-    { id: 'select', label: 'Select' },
-    { id: 'textarea', label: 'Textarea' },
-    { id: 'checkbox', label: 'Checkbox' },
-    { id: 'radio', label: 'Radio' },
-    { id: 'switch', label: 'Switch' },
-    { id: 'slider', label: 'Slider' },
-  ];
-
-  const dataItems = [
-    { id: 'badge', label: 'Badge' },
-    { id: 'avatar', label: 'Avatar' },
-    { id: 'card', label: 'Card' },
-  ];
-
-  const noticeItems: any[] = [];
-  const navigationItems: any[] = [];
-  const othersItems: any[] = [];
+  // Component items - Dynamic
+  const basicItems = getRoutes('components', 'basic');
+  const formItems = getRoutes('components', 'form');
+  const dataItems = getRoutes('components', 'data');
+  const noticeItems = getRoutes('components', 'notice');
+  const navigationItems = getRoutes('components', 'navigation');
+  const othersItems = getRoutes('components', 'others');
 
   const renderSection = (
     title: string, 

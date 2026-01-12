@@ -1,5 +1,6 @@
 import React from 'react';
 import { ComponentExample } from '../../components/ComponentExample';
+import { Badge } from '../../components/Badge';
 
 export function BadgeShowcase() {
   return (
@@ -13,26 +14,56 @@ export function BadgeShowcase() {
 
       {/* General Preview */}
       <div className="flex flex-wrap gap-4 p-12 border border-border rounded-[8px] bg-background items-center justify-center min-h-[160px]">
-        <span className="mspbots-badge mspbots-badge-primary">Primary</span>
-        <span className="mspbots-badge mspbots-badge-secondary">Secondary</span>
-        <span className="mspbots-badge mspbots-badge-outline">Outline</span>
-        <span className="mspbots-badge mspbots-badge-destructive">Destructive</span>
+        <Badge type="primary">Primary</Badge>
+        <Badge type="error">Error</Badge>
+        <Badge type="info">Info</Badge>
+        <Badge type="success">Success</Badge>
       </div>
 
       <div className="space-y-12">
         <ComponentExample
-          title="Variants"
+          title="Types"
           description="Use badges to display status, categories, or other metadata."
-          code={`<span className="mspbots-badge mspbots-badge-primary">Primary</span>
-<span className="mspbots-badge mspbots-badge-secondary">Secondary</span>
-<span className="mspbots-badge mspbots-badge-outline">Outline</span>
-<span className="mspbots-badge mspbots-badge-destructive">Destructive</span>`}
+          code={`<Badge type="primary">Primary</Badge>
+<Badge type="error">Error</Badge>
+<Badge type="info">Info</Badge>
+<Badge type="success">Success</Badge>`}
         >
           <div className="flex gap-4">
-            <span className="mspbots-badge mspbots-badge-primary">Primary</span>
-            <span className="mspbots-badge mspbots-badge-secondary">Secondary</span>
-            <span className="mspbots-badge mspbots-badge-outline">Outline</span>
-            <span className="mspbots-badge mspbots-badge-destructive">Destructive</span>
+            <Badge type="primary">Primary</Badge>
+            <Badge type="error">Error</Badge>
+            <Badge type="info">Info</Badge>
+            <Badge type="success">Success</Badge>
+          </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="Dot Variant"
+          description="Use dot badges to indicate status without text."
+          code={`<Badge type="primary" dot />
+<Badge type="error" dot />
+<Badge type="info" dot />
+<Badge type="success" dot />`}
+        >
+          <div className="flex gap-4">
+            <Badge type="primary" dot />
+            <Badge type="error" dot />
+            <Badge type="info" dot />
+            <Badge type="success" dot />
+          </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="Legacy Variants (Backward Compatibility)"
+          description="Legacy variants are mapped to the new types."
+          code={`<Badge variant="secondary">Secondary (Info)</Badge>
+<Badge variant="destructive">Destructive (Error)</Badge>
+<Badge variant="outline">Outline (Info)</Badge>`}
+        >
+          <div className="flex gap-4">
+            <Badge variant="secondary">Secondary</Badge>
+            <Badge variant="destructive">Destructive</Badge>
+            <Badge variant="outline">Outline</Badge>
           </div>
         </ComponentExample>
       </div>

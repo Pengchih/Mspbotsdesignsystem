@@ -7,28 +7,58 @@ export function InputShowcase() {
   return (
     <div className="w-full max-w-5xl mx-auto space-y-10 pb-20">
       <div className="space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Input</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Input & Textarea</h1>
         <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-          Displays a form input field or a component that looks like an input field.
-          Supports labels, icons, validation states, and different sizes.
+          Displays form input fields, textareas, and related components.
+          Supports labels, icons, validation states, groups, and different sizes.
         </p>
       </div>
 
       {/* General Preview */}
       <div className="flex flex-wrap gap-4 p-12 border border-border rounded-[8px] bg-background items-center justify-center min-h-[160px]">
-        <div className="w-full max-w-xs">
-          <Input placeholder="Type something..." />
+        <div className="w-full max-w-xs space-y-4">
+          <Input placeholder="Input something..." />
+          <Input multiline placeholder="Type multiple lines..." />
         </div>
       </div>
 
       <div className="space-y-12">
         <ComponentExample
-          title="Default"
+          title="Default Input"
           description="A standard text input field."
           code={`<Input placeholder="Email" />`}
         >
           <div className="w-full max-w-sm">
             <Input placeholder="Email" />
+          </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="With Label & Messages"
+          description="Input with label, error, or success messages."
+          code={`<Input 
+  label="Email Address" 
+  placeholder="Enter your email" 
+  error="Invalid email format" 
+/>
+<Input 
+  label="Username" 
+  value="mspbots_user" 
+  success="Username is available" 
+/>`}
+        >
+          <div className="w-full max-w-sm space-y-4">
+            <Input 
+              label="Email Address" 
+              placeholder="Enter your email" 
+              error="Invalid email format" 
+            />
+            <Input 
+              label="Username" 
+              value="mspbots_user" 
+              success="Username is available" 
+              readOnly
+            />
           </div>
         </ComponentExample>
 
@@ -87,6 +117,69 @@ export function InputShowcase() {
         >
           <div className="w-full max-w-sm">
             <Input wordLimit={30} placeholder="Max 30 chars" />
+          </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="Input Groups (Prepend/Append)"
+          description="Add text or icons before or after the input field."
+          code={`{/* Prepend Text */}
+<Input prepend="https://" placeholder="mspbots.ai" />
+
+{/* Append Text */}
+<Input append=".com" placeholder="username" />
+
+{/* Prepend Icon */}
+<Input prepend={<EnvelopeClosedIcon />} placeholder="Email" />
+
+{/* Both */}
+<Input prepend="$" append=".00" placeholder="Amount" />`}
+        >
+          <div className="w-full max-w-sm space-y-4">
+            <Input prepend="https://" placeholder="mspbots.ai" />
+            <Input append=".com" placeholder="username" />
+            <Input prepend={<EnvelopeClosedIcon />} placeholder="Email" />
+            <Input prepend="$" append=".00" placeholder="Amount" />
+          </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="Textarea (Multiline)"
+          description="Render a textarea by setting the multiline prop."
+          code={`<Input 
+  multiline 
+  label="Bio" 
+  placeholder="Tell us about yourself..." 
+/>`}
+        >
+          <div className="w-full max-w-sm">
+            <Input 
+              multiline 
+              label="Bio" 
+              placeholder="Tell us about yourself..." 
+            />
+          </div>
+        </ComponentExample>
+
+        <ComponentExample
+          title="Textarea with Autosize & Limit"
+          description="Textarea that grows with content and has a word limit."
+          code={`<Input 
+  multiline 
+  autosize 
+  wordLimit={200}
+  label="Feedback" 
+  placeholder="Type many lines..." 
+/>`}
+        >
+          <div className="w-full max-w-sm">
+            <Input 
+              multiline 
+              autosize 
+              wordLimit={200}
+              label="Feedback" 
+              placeholder="Type many lines..." 
+            />
           </div>
         </ComponentExample>
 

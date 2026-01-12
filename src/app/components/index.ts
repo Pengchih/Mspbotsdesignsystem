@@ -46,5 +46,14 @@ export type { SwitchProps } from './Switch';
 export { Slider } from './Slider';
 export type { SliderProps } from './Slider';
 
+export { Pagination } from './Pagination';
+export type { PaginationProps } from './Pagination';
+
 export { Textarea } from './Textarea';
 export type { TextareaProps } from './Textarea';
+
+export { Progress } from './Progress';
+export type { ProgressProps, ProgressSize, ProgressSemantic } from './Progress';
+
+export { Tag } from './Tag';
+export type { TagProps, TagColor, TagVariant, TagSize } from './Tag';

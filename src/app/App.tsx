@@ -1,21 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
-import { Colors } from './pages/Foundation/Colors';
-import { Typography } from './pages/Foundation/Typography';
-import { Icons } from './pages/Foundation/Icons';
-import { ButtonShowcase } from './pages/Components/ButtonShowcase';
-import { InputShowcase } from './pages/Components/InputShowcase';
-import { CheckboxShowcase } from './pages/Components/CheckboxShowcase';
-import { RadioShowcase } from './pages/Components/RadioShowcase';
-import { SwitchShowcase } from './pages/Components/SwitchShowcase';
-import { SliderShowcase } from './pages/Components/SliderShowcase';
-import { BadgeShowcase } from './pages/Components/BadgeShowcase';
-import { TextareaShowcase } from './pages/Components/TextareaShowcase';
-import { SelectShowcase } from './pages/Components/SelectShowcase';
-import { AvatarShowcase } from './pages/Components/AvatarShowcase';
-import { CardShowcase } from './pages/Components/CardShowcase';
-import { Foundation } from './pages/Foundation';
-import { Components } from './pages/Components';
+import { routes } from './routes';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
@@ -60,44 +45,26 @@ export default function App() {
 
   const handleCategoryChange = (cat: 'foundation' | 'components') => {
     setActiveCategory(cat);
-    setActiveTab(cat);
+    // Find the first route in this category to set as active tab
+    const firstRoute = routes.find(r => r.category === cat);
+    if (firstRoute) {
+      setActiveTab(firstRoute.id);
+    } else {
+      setActiveTab(cat); // Fallback
+    }
   };
 
   const renderContent = () => {
-    switch (activeTab) {
-      case 'colors':
-        return <Colors />;
-      case 'typography':
-        return <Typography />;
-      case 'icons':
-        return <Icons />;
-      case 'buttons':
-        return <ButtonShowcase />;
-      case 'inputs':
-        return <InputShowcase />;
-      case 'checkbox':
-        return <CheckboxShowcase />;
-      case 'radio':
-        return <RadioShowcase />;
-      case 'switch':
-        return <SwitchShowcase />;
-      case 'badge':
-        return <BadgeShowcase />;
-      case 'textarea':
-        return <TextareaShowcase />;
-      case 'select':
-        return <SelectShowcase />;
-      case 'avatar':
-        return <AvatarShowcase />;
-      case 'card':
-        return <CardShowcase />;
-      case 'foundation':
-        return <Foundation onNavigate={setActiveTab} />;
-      case 'components':
-        return <Components onNavigate={setActiveTab} />;
-      default:
-        return null;
+    const route = routes.find(r => r.id === activeTab);
+    
+    if (route) {
+      const Component = route.component;
+      // Pass onNavigate prop if the component accepts it (like Foundation/Components overview)
+      // We can cast to any to avoid strict type checking for the optional prop
+      return <Component onNavigate={setActiveTab} />;
     }
+    
+    return null;
   };
 
   return (

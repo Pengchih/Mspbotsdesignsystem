@@ -1168,6 +1168,78 @@
   color: var(--mspbots-input-success-fg);
 }
 
+/* Input Group */
+.mspbots-input-group {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Addon Base */
+.mspbots-input-group-addon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  border: 1px solid var(--mspbots-input-border);
+  padding: 0 12px;
+  font-family: var(--font-family-sans);
+  transition: all 0.2s ease;
+}
+
+/* Addon Sizes */
+.mspbots-input-group-addon-sm {
+  height: 24px;
+  font-size: 12px;
+  padding: 0 8px;
+}
+
+.mspbots-input-group-addon-md {
+  height: 32px;
+  font-size: 14px;
+  padding: 0 12px;
+}
+
+.mspbots-input-group-addon-lg {
+  height: 40px;
+  font-size: 14px;
+  padding: 0 16px;
+}
+
+/* Prepend Specifics */
+.mspbots-input-group-prepend {
+  border-right: none;
+  border-top-left-radius: var(--radius-card);
+  border-bottom-left-radius: var(--radius-card);
+}
+
+/* Append Specifics */
+.mspbots-input-group-append {
+  border-left: none;
+  border-top-right-radius: var(--radius-card);
+  border-bottom-right-radius: var(--radius-card);
+}
+
+/* Input modifications when inside group */
+.mspbots-input-has-prepend {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.mspbots-input-has-append {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Disabled State for Group */
+.mspbots-input-group-disabled .mspbots-input-group-addon {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--muted);
+}
+
 /* Checkbox */
 :root {
   --mspbots-checkbox-size-xs: 12px;
@@ -1440,34 +1512,90 @@
 .mspbots-badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   border-radius: 9999px;
-  padding: 2px 10px;
+  padding: 0 6px;
+  height: 18px;
+  min-width: 18px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.5;
+  font-family: var(--font-family-sans);
   transition: all 0.2s ease;
+  white-space: nowrap;
+  border: 1px solid #FFFFFF;
 }
 
 .mspbots-badge-primary {
-  background-color: var(--mspbots-primary);
-  color: var(--mspbots-primary-foreground);
+  background-color: #17B3A3;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
 }
 
+.mspbots-badge-error {
+  background-color: #EA3829;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.mspbots-badge-info {
+  background-color: #909399;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.mspbots-badge-success {
+  background-color: #67C23A;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+/* Legacy mappings */
 .mspbots-badge-secondary {
-  background-color: var(--secondary);
-  color: var(--secondary-foreground);
+  background-color: #909399;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
 }
 
 .mspbots-badge-outline {
-  border: 1px solid var(--border);
-  color: var(--foreground);
   background-color: transparent;
+  color: #909399;
+  border: 1px solid #909399;
 }
 
 .mspbots-badge-destructive {
-  background-color: var(--destructive);
-  color: var(--destructive-foreground);
+  background-color: #EA3829;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
 }
+
+/* Dot Variant */
+.mspbots-badge.mspbots-badge-dot {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  position: relative;
+}
+
+.mspbots-badge.mspbots-badge-dot::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+  border: 1px solid #FFFFFF;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mspbots-badge-dot.mspbots-badge-primary { color: #17B3A3; }
+.mspbots-badge-dot.mspbots-badge-error { color: #EA3829; }
+.mspbots-badge-dot.mspbots-badge-info { color: #909399; }
+.mspbots-badge-dot.mspbots-badge-success { color: #67C23A; }
 
 /* Textarea */
 .mspbots-textarea {
@@ -1497,6 +1625,37 @@
 .mspbots-textarea:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.mspbots-textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.mspbots-textarea-word-limit {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 12px;
+  color: var(--muted-foreground);
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.mspbots-textarea-error {
+  border-color: var(--destructive);
+}
+
+.mspbots-textarea-success {
+  border-color: var(--celery-500);
+}
+
+.mspbots-textarea-autosize {
+  overflow: hidden;
+  resize: none;
+  min-height: 40px;
 }
 
 /* Select */
@@ -1629,6 +1788,138 @@
   padding: 0 24px 24px 24px;
   display: flex;
   align-items: center;
+}
+
+/* Pagination */
+.mspbots-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mspbots-pagination-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-family-sans);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--foreground);
+}
+
+.mspbots-pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Sizes */
+.mspbots-pagination-button-sm {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+}
+
+.mspbots-pagination-button-md {
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+}
+
+/* Dots */
+.mspbots-pagination-dots {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-foreground);
+}
+
+.mspbots-pagination-dots-sm {
+  width: 24px;
+  height: 24px;
+}
+
+.mspbots-pagination-dots-md {
+  width: 32px;
+  height: 32px;
+}
+
+/* Background Variant (Default) */
+.mspbots-pagination-background {
+  background-color: var(--white-0);
+  border-color: var(--border);
+}
+
+.mspbots-pagination-background:hover:not(:disabled):not(.mspbots-pagination-selected) {
+  border-color: var(--mspbots-primary);
+  color: var(--mspbots-primary);
+}
+
+.mspbots-pagination-background.mspbots-pagination-selected {
+  background-color: var(--mspbots-primary);
+  border-color: var(--mspbots-primary);
+  color: var(--mspbots-primary-foreground);
+}
+
+/* No Background Variant */
+.mspbots-pagination-no-background {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.mspbots-pagination-no-background:hover:not(:disabled):not(.mspbots-pagination-selected) {
+  color: var(--mspbots-primary);
+}
+
+.mspbots-pagination-no-background.mspbots-pagination-selected {
+  color: var(--mspbots-primary);
+  font-weight: 600;
+}
+
+/* Simple Pagination Variant */
+.mspbots-pagination-simple {
+  display: inline-flex;
+  border: 1px solid #DCDFE6;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.mspbots-pagination-simple-sm {
+  border-radius: 4px;
+}
+
+.mspbots-pagination-simple-md {
+  border-radius: 6px;
+}
+
+.mspbots-pagination-simple .mspbots-pagination-button {
+  background-color: #F5F7FA;
+  border: none;
+  border-radius: 0;
+  color: #606266;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mspbots-pagination-simple .mspbots-pagination-button:hover:not(:disabled) {
+  background-color: #E4E7ED;
+}
+
+.mspbots-pagination-simple-prev {
+  border-right: 1px solid #DCDFE6 !important;
+}
+
+.mspbots-pagination-simple .mspbots-pagination-button:disabled {
+  background-color: #F5F7FA;
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: #C0C4CC;
 }
 
 /* Slider */
